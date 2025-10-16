@@ -12,32 +12,36 @@
 
 <body>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    
 
-        <div id="loginMenu" class="card shadow-lg p-4" style="width: 22rem">
-            <h3 class="text-center mb-4">MakeItAll</h3>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+        <div id="loginMenu" class="card shadow-lg p-4" style="width: 40rem">
+            <div id = "tabTitle" >
+                <img id = "logo" src="logo.png" alt = "Make-It-All Company Logo">
+                <h3 class="text-center mb-4">Login</h3>
+            </div>
                 
 
                     <form id="loginForm">
                     <div class="mb-3">
-                        <label for="loginUsername">Username</label>
+                        <label for="loginUsername">Username:</label>
                         <input class="form-control" id="loginUsername" placeholder="Enter username">
                     </div>
                     
                     <div class="mb-3">
 
-                        <label for="loginPassword">Password</label>
+                        <label for="loginPassword">Password:</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="loginPassword" placeholder="Enter password">
                             <button id="togglePassword" type="button" class="btn btn-outline-secondary"> <img id="eyeIcon" src="eyeClosed.svg" alt="Show password" style="width: 20px; height: 20px;"> </button>
                         
                         </div>
                     </div>
-
+                    
                     <div id="loginMessage" style="color: red; margin-bottom: 1rem;"></div>
                     <button id="loginBtn" type="submit" class="btn btn-primary w-100">Log In</button>
-
+                    <a class="nav-link" href = "resetPassword.html" >Reset my password</a>
+                    
                     </form>
 
                 

@@ -26,6 +26,22 @@ body{
 
 #loginBtn{
     border-radius: 15px;
-
-
+    transform: scale(1); 
+    transition: transform 0.3s ease; 
 }
+
+
+#loginBtn:hover {
+
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#logo{
+    display: block;
+    margin: auto;
+    width : 20rem;
+    padding-right: 1rem;
+}
+

@@ -5,6 +5,7 @@ const eyeIcon = document.getElementById('eyeIcon');
 const showIcon = 'eyeOpen.svg';
 const hideIcon = 'eyeClosed.svg';
 
+
 toggleButton.addEventListener('click', () => {
     const isPasswordHidden = passwordInput.type === 'password';
 
