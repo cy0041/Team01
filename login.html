@@ -32,16 +32,18 @@
 
                         <label for="loginPassword">Password:</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter password">
-                            <button id="togglePassword" type="button" class="btn btn-outline-secondary"> <img id="eyeIcon" src="eyeClosed.svg" alt="Show password" style="width: 20px; height: 20px;"> </button>
+                            <input type="password" class="form-control" id="loginPasswordinp" placeholder="Enter password">
+                            <button type="button" class="btn btn-outline-secondary togglePassword" data-input="loginPasswordinp" data-icon="eyeIcon"> <img id="eyeIcon" src="eyeClosed.svg" alt="Show password" style="width: 20px; height: 20px;"> </button>
                         
                         </div>
                     </div>
                     
                     <div id="loginMessage" style="color: red; margin-bottom: 1rem;"></div>
                     <button id="loginBtn" type="submit" class="btn btn-primary w-100">Log In</button>
-                    <a class="nav-link" href = "resetPassword.html" >Reset my password</a>
-                    
+                    <div class="d-flex justify-content-between">
+                    <a href="resetPassword.html" >Reset my password</a>
+                    <a href="signUp.html" class = "pe-3">Sign Up</a>
+                    </div>
                     </form>
 
                 

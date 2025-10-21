@@ -1,17 +1,28 @@
-const passwordInput1 = document.getElementById('loginPassword');
-const toggleButton = document.getElementById('togglePassword');
-const eyeIcon = document.getElementById('eyeIcon');
+// Finds all the password toggle buttons on the page.
+const toggleButton = document.querySelectorAll('.togglePassword');
 
+// Defines the Icon file paths.
 const showIcon = 'eyeOpen.svg';
 const hideIcon = 'eyeClosed.svg';
 
 
-toggleButton.addEventListener('click', () => {
-    const isPasswordHidden = passwordInput.type === 'password';
+toggleButton.forEach(button => {
 
-    passwordInput.type = isPasswordHidden ? 'text' : 'password';
-    eyeIcon.src = isPasswordHidden ? showIcon : hideIcon;
-    eyeIcon.alt = isPasswordHidden ? 'Hide password' : 'Show password';
+    button.addEventListener('click', () => {
+
+        const inputId = button.dataset.input;
+        const iconId = button.dataset.icon;
+
+        const passwordInput = document.getElementById(inputId);
+        const eyeIcon = document.getElementById(iconId);
 
 
-});
+        const isPasswordHidden = passwordInput.type === 'password';
+
+        passwordInput.type = isPasswordHidden ? 'text' : 'password';
+        eyeIcon.src = isPasswordHidden ? showIcon : hideIcon;
+        eyeIcon.alt = isPasswordHidden ? 'Hide password' : 'Show password';
+
+    })
+
+})
