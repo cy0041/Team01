@@ -11,10 +11,10 @@ toggleButton.forEach(button => {
     button.addEventListener('click', () => {
 
         const inputId = button.dataset.input;
-        const iconId = button.dataset.icon;
-
+        
         const passwordInput = document.getElementById(inputId);
-        const eyeIcon = document.getElementById(iconId);
+        
+        const eyeIcon = button.querySelector('img');
 
 
         const isPasswordHidden = passwordInput.type === 'password';

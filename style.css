@@ -45,3 +45,19 @@ body{
     padding-right: 1rem;
 }
 
+
+#SignUpBtn{
+    border-radius: 15px;
+    transform: scale(1); 
+    transition: transform 0.3s ease; 
+}
+
+
+#SignUpBtn:hover {
+
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
