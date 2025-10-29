@@ -299,8 +299,33 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Below is code for the calender-->
+            <div class="container-lg my-4 main-content">
+                <div class="card h-100 shadow-lg rounded-3">
+                    <div class="card-body p-0">
+                        <div class="card-header card-header-primary p-3">
+                            <h5 class="card-title mb-1 d-flex justify-content-between align-items-center">
+                                <span>
+                                    <img src="calendar.png" alt="Calender logo" style="padding-right:10px" height="30px">
+                                    Project Calendar
+                                </span>
+                                <a id = "toggleExpand" href="javascript:void(0);" class="ml-auto" onclick = "toggleCalendar();">Expand</a>
+                            </h5>
+                        </div>
+                    <div id="expand" style = "display:none">
+                        <div style = "padding:10px">
+                            <p class="card-text mb-3">View the schedule for all upcoming events, deadlines, and meetings here.</p>
+                        </div>
+                        <div style="height: 600px; width: 100%;">
+                            
+                            <iframe id = "calender" src="https://calendar.google.com/calendar/embed?src=c8b0a7249dc646c7021189b1254d21655e7c16290c09d132277168f4e0d0d111%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 100%;padding : 10px" frameborder="0" scrolling="no" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+        
     </main>
 
     <!-- 3. Footer -->
@@ -355,6 +380,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
+        // Calender JS
+        function toggleCalendar() {
+            const element = document.getElementById("expand");
+            const toggleButton = document.getElementById("toggleExpand");
+
+            if (element && toggleButton) {
+                if (element.style.display === "none" || element.style.display === "") {
+                    element.style.display = "block";
+                    toggleButton.innerHTML = "Hide";
+                } 
+                else {
+                    element.style.display = "none";
+                    toggleButton.innerHTML = "Expand";
+                }
+            }
+        }
+
         // --- Theme Switching Logic ---
         const themeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
@@ -393,6 +435,10 @@
                 tableHead1.classList.add('table-dark');
                 tableHead2.classList.remove('table-light');
                 tableHead2.classList.add('table-dark');
+                // Switch calender to dark
+                document.getElementById("calender").style.filter = "invert(100%) brightness(90%)";
+                
+                
                 
             } else {
                 themeToggle.checked = false;
@@ -414,6 +460,9 @@
                 tableHead1.classList.add('table-light');
                 tableHead2.classList.remove('table-dark');
                 tableHead2.classList.add('table-light');
+
+                // Switch calender to light
+                document.getElementById("calender").style.filter = "invert(0%)";
             }
         }
 
@@ -456,7 +505,6 @@
     </script>
 </body>
 </html>
-
 
 
 
