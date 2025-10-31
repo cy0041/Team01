@@ -20,6 +20,13 @@ function containsNumber(inputString) {
     return /\d/.test(inputString);
 }
 
+function checkValidUsername(inputString){
+    if (inputString.search(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) == -1){
+        return false;
+    };
+    return true;
+}
+
 loginButton.addEventListener('click', () => {
     event.preventDefault();
     const passDiv = document.getElementById("SignUpPassinp");
@@ -29,7 +36,8 @@ loginButton.addEventListener('click', () => {
     if (confirmDiv.value === passDiv.value) { 
         if (confirmDiv.value.length > 6){
             if (usernameDiv.value.length != 0){
-                if (containsSpecialCharacter(confirmDiv.value)){
+                if (checkValidUsername(usernameDiv.value)){
+                    if (containsSpecialCharacter(confirmDiv.value)){
                     if (containsLowercase(confirmDiv.value)){
                         if (containsUppercase(confirmDiv.value)){
                             if (containsNumber(confirmDiv.value)){
@@ -49,12 +57,18 @@ loginButton.addEventListener('click', () => {
                     errorDiv.innerHTML = "ERROR : Password must contain at least 1 speical character";
                 }
             }else{
-                errorDiv.innerHTML = "ERROR : Username must have non-zero length";  
+                errorDiv.innerHTML = "ERROR : Username must be an email";
+                
             }
         }else {
-          errorDiv.innerHTML = "ERROR : Password must be at least 7 characters long";  
+            errorDiv.innerHTML = "ERROR : Username must have non-zero length";  
         }
     } else {
+        errorDiv.innerHTML = "ERROR : Password must be at least 7 characters long";  
+        
+    }
+    }else{
         errorDiv.innerHTML = "ERROR : Passwords don't match";
     }
+                
 });
