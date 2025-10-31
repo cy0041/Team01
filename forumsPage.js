@@ -569,34 +569,78 @@ function handlePostSubmit() {
     newPostModal.hide();
 }
 
+
+
 // Text Size Toggle
-let textEnlarged = false;
+const savedTextSize = localStorage.getItem('textSize')
+let currentTextSize = savedTextSize || 'regular';
+
 document.getElementById('textEnlargeToggle').addEventListener('click', function() {
-    textEnlarged = !textEnlarged;
-    if (textEnlarged) {
-        document.body.style.fontSize = '1.1em';
-        document.getElementById('textSizeIcon').className = 'bi bi-dash-lg';
+    if (currentTextSize === 'regular') {
+        applyTextSize('enlarged') 
     } else {
-        document.body.style.fontSize = '';
-        document.getElementById('textSizeIcon').className = 'bi bi-plus-lg';
+        applyTextSize('regular') 
     }
 });
 
-// Dark Mode Toggle
-document.getElementById('darkModeToggle').addEventListener('change', function() {
+function applyTextSize(size) 
+{
+    localStorage.setItem('textSize', size)
+    currentTextSize = size;
+
+    const icon = document.getElementById('textSizeIcon')
+
+    if (size == 'enlarged') {
+        document.body.style.fontSize = '1.3em';
+        icon.className = 'bi bi-dash-lg';
+    } else if (size === 'regular') {
+        document.body.style.fontSize = '';
+        icon.className = 'bi bi-plus-lg';
+    }
+}
+
+applyTextSize(currentTextSize)
+
+document.getElementById('darkModeToggle').addEventListener('change', function() 
+{
     if (this.checked) {
-        document.body.classList.add('dark-mode');
-        document.getElementById('modeIcon').className = 'bi bi-moon-fill';
+        applyTheme('dark')
     } else {
-        document.body.classList.remove('dark-mode');
-        document.getElementById('modeIcon').className = 'bi bi-sun-fill';
+        applyTheme('light')
     }
 });
+
+function applyTheme (theme)
+{
+    localStorage.setItem('theme', theme)
+
+    const toggle = document.getElementById('darkModeToggle')
+    const icon = document.getElementById('modeIcon')
+
+    if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        icon.className = 'bi bi-moon-fill';
+        toggle.checked = true;
+    } else {
+        document.body.classList.remove('dark-mode');
+        icon.className = 'bi bi-sun-fill';
+        toggle.checked = false;
+    }
+}
+
+const savedTheme = localStorage.getItem('theme')
+applyTheme(savedTheme || 'light')
 
 //Logout Button
 document.getElementById('logoutButton').addEventListener('click', function() {
     window.location.href = 'login.html';
 });
 
+
+
 // Initialize on load
 init();
+
+
+
+

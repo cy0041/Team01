@@ -6,51 +6,52 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-    background-color: rgb(251, 251, 251);
+    /* Light mode background */
+    background-color: #f8f9fa;
     min-height: 100vh;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s;
 }
+
+/* --- Dark Mode Palette --- */
 
 body.dark-mode {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    /* Base background color */
+    background-color: #212529;
 }
 
-body.dark-mode .section-card {
-    background: #2d2d44;
+/* All content surfaces (cards, modals, footers, inputs) */
+body.dark-mode .section-card,
+body.dark-mode .post-card,
+body.dark-mode .answer-item,
+body.dark-mode .faq-item,
+body.dark-mode .form-control,
+body.dark-mode .modal-content,
+body.dark-mode footer {
+    background-color: #343a40;
     color: #e0e0e0;
 }
 
-body.dark-mode .post-card {
-    background: #3a3a52;
-    border-color: #4a4a62;
-    color: #e0e0e0;
-}
-
-body.dark-mode .answer-item {
-    background: #2d2d44;
-    border-color: #4a4a62;
-    color: #e0e0e0;
-}
-
-body.dark-mode .faq-item {
-    background: #3a3a52;
+/* Borders */
+body.dark-mode .post-card,
+body.dark-mode .answer-item,
+body.dark-mode .faq-item,
+body.dark-mode .form-control,
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
     border-color: #4a4a62;
 }
 
+/* Text */
 body.dark-mode .faq-header {
     color: #e0e0e0;
-}
-
-body.dark-mode .faq-header:hover {
-    background: #4a4a62;
 }
 
 body.dark-mode .faq-body {
     color: #c0c0c0;
 }
 
-body.dark-mode .text-muted {
+body.dark-mode .text-muted,
+body.dark-mode footer .text-muted {
     color: #a0a0a0 !important;
 }
 
@@ -58,15 +59,15 @@ body.dark-mode .section-title {
     color: #e0e0e0;
 }
 
-body.dark-mode .form-control {
-    background: #3a3a52;
-    border-color: #4a4a62;
-    color: #e0e0e0;
+/* Hovers & Focus */
+body.dark-mode .faq-header:hover {
+    background: #4a4a62;
 }
 
 body.dark-mode .form-control:focus {
-    background: #3a3a52;
-    border-color: #667eea;
+    background: #343a40;
+    /* MODIFIED: Changed from purple to gray */
+    border-color: #6c757d;
     color: #e0e0e0;
 }
 
@@ -74,41 +75,49 @@ body.dark-mode .form-control::placeholder {
     color: #888;
 }
 
-/* ADDED: Dark mode styles for the modal */
-body.dark-mode .modal-content {
-    background: #2d2d44;
-    color: #e0e0e0;
-}
-
-body.dark-mode .modal-header {
-    border-bottom-color: #4a4a62;
-}
-
-body.dark-mode .modal-footer {
-    border-top-color: #4a4a62;
-}
-
+/* Special Components (Navbar & Modal) */
 body.dark-mode .btn-close {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-body.dark-mode footer {
-    background: #2d2d44;
-    color: #e0e0e0;
-}
-
-body.dark-mode footer .text-muted {
-    color: #a0a0a0 !important;
-}
-
 body.dark-mode .navbar {
-    background: #2d2d44 !important;
+    background: rgba(3, 3, 3, 0.746) !important;
 }
 
 body.dark-mode .navbar .nav-link,
-body.dark-mode .navbar .navbar-text {
+body.dark-mode .navbar .navbar-text,
+body.dark-mode .navbar #modeIcon { 
     color: #e0e0e0 !important;
 }
+
+/* --- REPLACE the old footer link styles with this --- */
+
+/* 1. Light mode link color (black) */
+footer a {
+    color: #212529; 
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* 2. Light mode HOVER (blue) */
+footer a:hover {
+    color: #0d6efd; /* Standard blue on hover */
+    text-decoration: underline;
+}
+
+/* 3. Dark mode link color (light gray) */
+body.dark-mode footer a {
+    color: #e0e0e0; 
+}
+
+/* 4. Dark mode HOVER (blue) */
+/* This rule is now specific enough to override rule 3 */
+body.dark-mode footer a:hover {
+    color: #0d6efd; /* Standard blue on hover */
+}
+
+/* --- End Dark Mode --- */
+
 
 .logo-img-nav {
     height: 40px;
@@ -180,12 +189,14 @@ body.dark-mode .navbar .navbar-text {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.5);
+    /* MODIFIED: Changed from purple (rgba(102, 126, 234, 0.5)) to gray */
+    background: rgba(108, 117, 125, 0.5);
     border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(102, 126, 234, 0.8);
+    /* MODIFIED: Changed from purple (rgba(102, 126, 234, 0.8)) to gray */
+    background: rgba(108, 117, 125, 0.8);
 }
 
 .post-card {
@@ -207,13 +218,14 @@ body.dark-mode .navbar .navbar-text {
     cursor: default;
 }
 
+/* MODIFIED: Changed category badges from blue/green to gray */
 .badge-technical {
-    background: #3b82f6;
+    background: #495057; /* Darker gray */
     color: white;
 }
 
 .badge-non-technical {
-    background: #10b981;
+    background: #6c757d; /* Lighter gray */
     color: white;
 }
 
@@ -269,9 +281,10 @@ body.dark-mode .navbar .navbar-text {
 }
 
 .filter-btn.active {
-    background: #667eea !important;
+    /* MODIFIED: Changed from purple to gray */
+    background: #6c757d !important;
     color: white !important;
-    border-color: #667eea !important;
+    border-color: #6c757d !important;
 }
 
 .section-title {
@@ -288,9 +301,10 @@ body.dark-mode .navbar .navbar-text {
 }
 
 footer {
+    /* Light mode footer */
     background: white;
     margin-top: 3rem;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .answer-form {
@@ -305,7 +319,8 @@ footer {
     border: 1px solid #e9ecef;
     border-radius: 6px;
     padding: 0.75rem;
-    padding-bottom: 2.5rem;
+    /* Added extra padding at the bottom to make space for the button */
+    padding-bottom: 2.5rem; 
     margin-bottom: 0.75rem;
     animation: slideIn 0.3s ease forwards;
 }
@@ -321,8 +336,25 @@ footer {
         flex-direction: column;
     }
 
-    .left-column {
-        flex: 1;
+    .left-column, .right-column {
+        display: contents;
+    }
+
+    /* 1st Item: Your Posts */
+    .your-posts-section {
+        order: 1;
+        margin-bottom: 2rem;
+    }
+
+    /* 2nd Item: Public Forums */
+    .right-column > .section-card {
+        order: 2;
+        margin-bottom: 2rem;
+    }
+
+    /* 3rd Item: FAQ */
+    .faq-section {
+        order: 3;
     }
 }
 
