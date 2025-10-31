@@ -402,12 +402,6 @@ function submitAnswer(postId) {
         postPublic.answerCount = postPublic.answers.length;
     }
     
-    const postYour = state.yourPosts.find(p => p.id === postId);
-    if (postYour) {
-        postYour.answers.push(newAnswer);
-        postYour.answerCount = postYour.answers.length;
-    }
-    
     renderPublicPosts();
     renderYourPosts();
     
