@@ -23,7 +23,7 @@ function fetchUsernames(){
                     };
                 }
             })
-            // console.log(accounts); // Uncomment to see the new data structure!
+            
         })
 }
 
@@ -52,14 +52,18 @@ loginForm.addEventListener('submit', function(loginEvent){
                 messageDiv.textContent = "Login Successful";
                 messageDiv.style.color = "green";
                 
+                sessionStorage.setItem('loggedInUser',submittedUsername);
+                sessionStorage.setItem('userRole', 'admin')
                 setTimeout(() => {
-                    window.location.href = "adminMainMenu.html";
+                    window.location.href = "MainMenu.html";
                 },1000)
             }
             else {
                 messageDiv.textContent = "Login Successful";
                 messageDiv.style.color = "green";
                 
+                sessionStorage.setItem('loggedInUser',submittedUsername);
+                sessionStorage.setItem('userRole', 'worker')
                 setTimeout(() => {
                     window.location.href = "mainMenu.html";
                 },1000)

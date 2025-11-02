@@ -147,8 +147,8 @@
                         </label>
                     </div>
                     
-                    <span class="navbar-text me-3">
-                        Welcome, I.B. Queen (Manager)
+                    <span class="navbar-text me-3" id="welcomeMessage">
+                        Welcome
                     </span>
                     <!-- UPDATED: Logout is now a link to login.html -->
                     <a href="login.html" class="btn btn-outline-secondary btn-sm">Logout</a>
@@ -268,8 +268,8 @@
                                                 COB290 Prototype Submission (R1/P)
                                             </a>
                                         </td>
-                                        <td>Monday, Week 6</td>
-                                        <td><span class="badge bg-danger">Hard Deadline</span></td>
+                                        <td>03 November 2025</td>
+                                        <td><span class="badge bg-warning text-dark">Pending Review</span></td>
                                         <td><span class="badge bg-danger text-dark">High</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="teamTask1">
@@ -507,6 +507,16 @@
         textEnlargeToggle.addEventListener('click', () => {
             applyTextSize(!body.classList.contains(TEXT_CLASS));
         });
+
+        const welcomeMessageElement = document.getElementById('welcomeMessage');
+
+
+        const loggedInUser = sessionStorage.getItem('loggedInUser');
+        
+
+        const newText = `Welcome, ${loggedInUser.slice(0,-14)} (${sessionStorage.getItem('userRole')})`;
+
+        welcomeMessageElement.textContent = newText;
     </script>
 </body>
 </html>

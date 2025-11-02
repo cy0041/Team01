@@ -636,7 +636,14 @@ document.getElementById('logoutButton').addEventListener('click', function() {
     window.location.href = 'login.html';
 });
 
+//change the navbar name
 
+const welcomeMessageElement = document.getElementById('welcomeMessage');
+
+const loggedInUser = sessionStorage.getItem('loggedInUser');
+const newText = `Welcome, ${loggedInUser.slice(0,-14)} (${sessionStorage.getItem('userRole')})`;
+
+welcomeMessageElement.textContent = newText;
 
 // Initialize on load
 init();
