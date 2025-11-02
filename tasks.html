@@ -344,7 +344,7 @@
                     <div class="col-lg-7">
                         <div class="card shadow-lg rounded-3">
                             <div class="card-header p-3">
-                                <h2 class="h5 mb-0"><i class="bi bi-people-fill me-2"></i>Team Tasks (Project Alpha)</h2>
+                                <h2 class="h5 mb-0"><i class="bi bi-people-fill me-2"></i>Team Tasks </h2>
                             </div>
                             <div class="card-body p-0 task-list-container">
                                 <div class="table-responsive">
@@ -406,14 +406,26 @@
                     </div>
                     <!-- Right Column: Team Graphs -->
                     <div class="col-lg-5">
-                        <h2 class="h5 mb-3">Team Analytics (Project Alpha)</h2>
+                        <h2 class="h5 mb-3">Team Analytics</h2>
+
+
                         <!-- Graph 1 -->
+
+                        <div class="card shadow-sm rounded-3 mb-3">
+                            <div class="card-body">
+                                <h3 class="h6 card-title">Team Productivity per Month (Tasks Completed)</h3>
+                                <canvas id="teamProductivityChart"></canvas>
+                            </div>
+                        </div>
+
+                         <!-- 
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
                                 <h3 class="h6 card-title">Task Contribution by Member</h3>
                                 <canvas id="teamContributionChart"></canvas>
                             </div>
                         </div>
+                        -->
                         <!-- Graph 2 -->
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
@@ -755,6 +767,38 @@
             allCharts.push(individualDeadlineChart);
 
             // --- Team Charts ---
+
+            const ctxProd1 = document.getElementById('teamProductivityChart').getContext('2d');
+            const teamProductivityChart = new Chart(ctxProd1, {
+                type: 'bar',
+                data: {
+                    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [{
+                        label: 'Tasks Completed',
+                        data: userChartData["Mahi"].productivity,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            ticks: { color: getChartColors().font }, 
+                            grid: { color: getChartColors().grid } 
+                        },
+                        x: { 
+                            ticks: { color: getChartColors().font }, 
+                            grid: { color: getChartColors().grid } 
+                        }
+                    },
+                    plugins: { legend: { labels: { color: getChartColors().font } } }
+                }
+            });
+            allCharts.push(teamProductivityChart);
+
+            /*
             const ctxTeamCont = document.getElementById('teamContributionChart').getContext('2d');
             const teamContributionChart = new Chart(ctxTeamCont, {
                 type: 'pie',
@@ -769,6 +813,7 @@
             });
             allCharts.push(teamContributionChart);
 
+            */
             const ctxTeamCat = document.getElementById('teamCategoryChart').getContext('2d');
             const teamCategoryChart = new Chart(ctxTeamCat, {
                 type: 'doughnut',
