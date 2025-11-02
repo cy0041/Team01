@@ -55,7 +55,7 @@ loginForm.addEventListener('submit', function(loginEvent){
                 sessionStorage.setItem('loggedInUser',submittedUsername);
                 sessionStorage.setItem('userRole', 'admin')
                 setTimeout(() => {
-                    window.location.href = "MainMenu.html";
+                    window.location.href = "mainMenu.html";
                 },1000)
             }
             else {
