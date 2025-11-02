@@ -1,6 +1,13 @@
+// we access the logged in user from session storage
+const full_username = sessionStorage.getItem('loggedInUser')
+// extract the name by splitting string into 2 elements in an array, where we split with all characters containing @ (here we only have 1 @ symbol)
+// then we take the first elemnt of the array (from first character up until and excluding the @ symbol)
+const username = full_username.split('@')[0]
+
+
 // data Structure which is hardcoded with fixed dummy data using AI
 const state = {
-    currentUser: 'Isabella Queen',
+    currentUser: username,
     currentFilter: 'all',
     currentSubcategory: null,
     searchQuery: '',
@@ -11,7 +18,7 @@ const state = {
             category: 'technical',
             subcategory: 'programming',
             content: 'I am experiencing performance issues with my React application when rendering large lists. What are the best practices?',
-            author: 'Isabella Queen',
+            author: username,
             timestamp: '2 hours ago',
             answerCount: 3,
             expanded: false,
@@ -27,7 +34,7 @@ const state = {
             category: 'non-technical',
             subcategory: 'financial',
             content: 'What is the recommended process for submitting a budget proposal for Q4?',
-            author: 'Isabella Queen',
+            author: username,
             timestamp: '1 day ago',
             answerCount: 2,
             expanded: false,
@@ -44,7 +51,7 @@ const state = {
             category: 'technical',
             subcategory: 'programming',
             content: 'I am experiencing performance issues with my React application when rendering large lists. What are the best practices?',
-            author: 'Isabella Queen',
+            author: username,
             timestamp: '2 hours ago',
             answerCount: 3,
             expanded: false,
@@ -60,7 +67,7 @@ const state = {
             category: 'non-technical',
             subcategory: 'financial',
             content: 'What is the recommended process for submitting a budget proposal for Q4?',
-            author: 'Isabella Queen',
+            author: username,
             timestamp: '1 day ago',
             answerCount: 2,
             expanded: false,
@@ -402,12 +409,18 @@ function submitAnswer(postId) {
         postPublic.answerCount = postPublic.answers.length;
     }
     
+    const postYour = state.yourPosts.find(p => p.id === postId);
+    if (postYour) {
+        postYour.answers.push(newAnswer);
+        postYour.answerCount = postYour.answers.length;
+    }
     renderPublicPosts();
     renderYourPosts();
     
     // Clear textarea
     textarea.value = '';
-}
+} 
+
 
 //  Delete Post
 function deletePost(postId) {
@@ -530,6 +543,7 @@ function openNewPostModal() {
 }
 
 // Handles the new post form submission
+// Handles the new post form submission
 function handlePostSubmit() {
     const form = document.getElementById('newPostForm');
     const titleInput = document.getElementById('postTitle');
@@ -546,9 +560,11 @@ function handlePostSubmit() {
     const content = contentInput.value;
     const category = document.querySelector('input[name="postCategory"]:checked').value;
     const subcategory = subcategorySelect.value;
+    const newPostId = Date.now(); // Create one ID to link them
 
-    const newPost = {
-        id: Date.now(),
+    // 1. Create the post for 'yourPosts'
+    const newPostForYour = {
+        id: newPostId,
         title,
         category,
         subcategory,
@@ -557,11 +573,28 @@ function handlePostSubmit() {
         timestamp: 'Just now',
         answerCount: 0,
         expanded: false,
-        answers: []
+        answers: [] // This is a new, separate array
     };
 
-    state.yourPosts.unshift(newPost);
-    state.publicPosts.unshift(newPost); // Add to public posts as well
+    // 2. Create an identical-but-separate post for 'publicPosts'
+    const newPostForPublic = {
+        id: newPostId,
+        title,
+        category,
+        subcategory,
+        content,
+        author: state.currentUser,
+        timestamp: 'Just now',
+        answerCount: 0,
+        expanded: false,
+        answers: [] // This is a *different* new, separate array
+    };
+
+    // Add each separate object to its respective array
+    state.yourPosts.unshift(newPostForYour);
+    state.publicPosts.unshift(newPostForPublic);
+    
+    // --- END OF FIX ---
     
     renderYourPosts();
     renderPublicPosts();
