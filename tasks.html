@@ -201,7 +201,14 @@
                     <div class="col-lg-7">
                         <div class="card shadow-lg rounded-3">
                             <div class="card-header p-3">
-                                <h2 class="h5 mb-0" id="individualTasksTitle"><i class="bi bi-person-check me-2"></i>Owais' Individual Tasks</h2>
+                                <div class="d-flex justify-content-between">
+                                    <h2 class="h5 mb-0" id="individualTasksTitle"><i class="bi bi-person-check me-2"></i>Owais' Individual Tasks</h2>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                                        <i class="bi bi-plus">Add Task</i>
+                                    </button>
+
+                                </div>
+                                
                             </div>
                             <div class="card-body p-0 task-list-container">
                                 <div class="table-responsive">
@@ -386,7 +393,7 @@
                                             <!-- Team Task 5 -->
                                             <tr>
                                                 <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask5" role="button">Client Demo (Part 1) Preparation</a></td>
-                                                <td>Tues, Week 6</td>
+                                                <td>04 November 2025</td>
                                                 <td><span class="badge bg-info">In Progress</span></td>
                                                 <td><span class="badge bg-danger text-dark">High</span></td>
                                             </tr>
@@ -426,6 +433,67 @@
             </div>
         </div>
         
+
+        <div class="modal fade" id = "addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTaskModelLabel">Add New Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addTaskForm">
+                            <div class="mb-3">
+                                <label for="taskName" class="form-label">Task</label>
+                                <input type="text" class="form-control" id="taskName" placeholder="what task needs to be done?" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label></label>
+
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="taskDueDate" class="form-label">Due Date</label>
+                                <input type="date" class="form-control" id="taskDueDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="taskStatus" class="form-label">Status</label>
+                                <select class="form-select" id="taskStatus">
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="taskImportance" class="form-label">Importance</label>
+                                <select class="form-select" id="taskImportance">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveTaskButton">Save Task</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
     </main>
 
     <!-- 3. Footer (Copied from mainMenu.html) -->
@@ -577,22 +645,37 @@
             
             // Mock Data for a "user"
             let userChartData = {
-                "I.B. Queen": {
+                "Owais": {
                     productivity: [5, 8, 12, 10, 14, 9],
                     status: [4, 2, 1, 3], // In Progress, Pending, Blocked, Not Started
                     deadline: [5, 3, 4, 5, 2, 4] // On Time, 1 Day Late, 2+ Days Late, On Time, Blocked, On Time
                 },
-                "Bert": {
+                "Mahi": {
                     productivity: [10, 12, 8, 15, 11, 13],
                     status: [8, 1, 0, 2],
                     deadline: [6, 0, 1, 5, 1, 6]
                 },
-                "Clara": {
+                "Abdullah": {
                     productivity: [8, 9, 10, 10, 12, 11],
                     status: [5, 3, 1, 1],
                     deadline: [4, 1, 0, 5, 0, 6]
                 },
-                "Alice": {
+                "Zakaria": {
+                    productivity: [4, 5, 3, 6, 5, 4],
+                    status: [2, 2, 0, 4],
+                    deadline: [6, 0, 0, 6, 0, 6]
+                },
+                "Nabil": {
+                    productivity: [4, 5, 3, 6, 5, 4],
+                    status: [2, 2, 0, 4],
+                    deadline: [6, 0, 0, 6, 0, 6]
+                },
+                "Henry": {
+                    productivity: [4, 5, 3, 6, 5, 4],
+                    status: [2, 2, 0, 4],
+                    deadline: [6, 0, 0, 6, 0, 6]
+                },
+                "Hischem": {
                     productivity: [4, 5, 3, 6, 5, 4],
                     status: [2, 2, 0, 4],
                     deadline: [6, 0, 0, 6, 0, 6]
@@ -607,7 +690,7 @@
                     labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
                     datasets: [{
                         label: 'Tasks Completed',
-                        data: userChartData["I.B. Queen"].productivity,
+                        data: userChartData["Owais"].productivity,
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
@@ -636,7 +719,7 @@
                 data: {
                     labels: ['In Progress', 'Pending', 'Blocked', 'Not Started'],
                     datasets: [{
-                        data: userChartData["I.B. Queen"].status,
+                        data: userChartData["Owais"].status,
                         backgroundColor: ['#0dcaf0', '#ffc107', '#dc3545', '#6c757d']
                     }]
                 },
@@ -651,7 +734,7 @@
                     labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
                     datasets: [{
                         label: 'Days to Deadline (0=On Time)',
-                        data: userChartData["I.B. Queen"].deadline.map(d => 6 - d), // Mock data
+                        data: userChartData["Owais"].deadline.map(d => 6 - d), // Mock data
                         backgroundColor: 'rgba(25, 135, 84, 0.2)',
                         borderColor: 'rgba(25, 135, 84, 1)',
                         pointBackgroundColor: 'rgba(25, 135, 84, 1)'
@@ -676,10 +759,10 @@
             const teamContributionChart = new Chart(ctxTeamCont, {
                 type: 'pie',
                 data: {
-                    labels: ['I.B. Queen', 'Bert', 'Clara', 'Alice'],
+                    labels: ['Owais', 'Mahi', 'Abdullah', 'Zakaria','Nabil','Henry','Hischem'],
                     datasets: [{
-                        data: [8, 12, 10, 5], // Mock contributions
-                        backgroundColor: ['#0d6efd', '#198754', '#ffc107', '#0dcaf0']
+                        data: [8, 12, 10, 5, 6, 11, 8], // Mock contributions
+                        backgroundColor: ['#E6EFE9', '#C5F4E0', '#C2EABA', '#A7C4A0', '#1A535C', '#4ECDC4','#FF9F1C']
                     }]
                 },
                 options: { plugins: { legend: { labels: { color: getChartColors().font } } } }
@@ -783,6 +866,9 @@
                 }
             });
 
+
+
+
             // Handle manager view selection
             document.querySelectorAll('#managerViewDropdown .dropdown-item').forEach(item => {
                 item.addEventListener('click', (e) => {
@@ -798,13 +884,13 @@
 
                     // Update page titles
                     const possession = selectedUser.endsWith('s') ? "'" : "'s";
-                    const titleName = selectedUser === 'I.B. Queen' ? 'My' : `${selectedUser}${possession}`;
+                    const titleName = selectedUser === 'Owais' ? 'My' : `${selectedUser}${possession}`;
                     individualTasksTitle.innerHTML = `<i class="bi bi-person-check me-2"></i>${titleName} Individual Tasks`;
                     individualAnalyticsTitle.textContent = `${titleName} Task Analytics`;
 
                     // **** NEW: Update Chart Data ****
                     // This simulates fetching new data for the selected user
-                    const newData = userChartData[selectedUser] || userChartData["I.B. Queen"]; // Fallback
+                    const newData = userChartData[selectedUser] || userChartData["Owais"]; // Fallback
                     
                     individualProductivityChart.data.datasets[0].data = newData.productivity;
                     individualProductivityChart.update();
@@ -817,6 +903,116 @@
                 });
             });
 
+
+
+
+        // Get the modal instance
+        const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
+        
+        // Get the "Save Task" button, the form, and the table body
+        const saveTaskButton = document.getElementById('saveTaskButton');
+        const addTaskForm = document.getElementById('addTaskForm');
+        const tableBody = document.querySelector(".table-hover tbody");
+
+        // Add a click event listener to the "Save Task" button
+        saveTaskButton.addEventListener('click', function() {
+            
+            // Get the values from the form fields
+            const taskName = document.getElementById('taskName').value;
+            const taskDueDate = document.getElementById('taskDueDate').value;
+            const taskStatus = document.getElementById('taskStatus').value;
+            const taskImportance = document.getElementById('taskImportance').value;
+
+            // Simple validation: check if task name or due date are empty
+            if (!taskName || !taskDueDate) {
+                alert('Please fill out both the Task and Due Date fields.');
+                return; // Stop the function from running further
+            }
+
+            // --- Format the data to match your table ---
+            
+            // Format the date (e.g., from "2025-11-05" to "05 Nov 2025")
+            const formattedDate = formatDate(taskDueDate);
+            
+            // Get the correct badge class for Status
+            const statusBadge = getStatusBadge(taskStatus);
+            
+            // Get the correct badge class for Importance
+            const importanceBadge = getImportanceBadge(taskImportance);
+
+            // --- Create the new table row HTML ---
+            
+            // Create a unique ID for the new task's collapsible details
+            const taskCount = tableBody.querySelectorAll("tr:not(.task-details-row)").length + 1;
+            const newTaskId = `indTask${taskCount}`;
+
+            // Create the HTML for the new task row and its details row
+            const newRowHTML = `
+                <tr>
+                    <td class="ps-3">
+                        <a class="task-toggle" data-bs-toggle="collapse" href="#${newTaskId}" role="button">${taskName}</a>
+                    </td>
+                    <td>${formattedDate}</td>
+                    <td><span class="badge ${statusBadge}">${taskStatus}</span></td>
+                    <td><span class="badge ${importanceBadge}">${taskImportance}</span></td>
+                </tr>
+                <tr class="collapse task-details-row" id="${newTaskId}">
+                    <td colspan="4" class="p-3">
+                        <p class="mb-1"><strong>Desc:</strong> (No description provided)</p>
+                        <p class="mb-0"><strong>Category:</strong> (Not specified)</p>
+                    </td>
+                </tr>
+            `;
+
+            // Add the new row HTML to the end of the table body
+            tableBody.insertAdjacentHTML('beforeend', newRowHTML);
+
+            // Reset the form fields for the next entry
+            addTaskForm.reset();
+            
+            // Hide the modal popup
+            addTaskModal.hide();
+        });
+
+
+        // --- Helper Functions ---
+
+        function formatDate(dateString) {
+            // Converts "YYYY-MM-DD" to "DD Mon YYYY"
+            const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone issues
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options);
+        }
+
+        function getStatusBadge(status) {
+            switch (status) {
+                case 'Pending':
+                    return 'bg-warning';
+                case 'In Progress':
+                    return 'bg-info';
+                case 'Completed':
+                    return 'bg-success';
+                case 'Not Started':
+                    return 'bg-secondary';
+                default:
+                    return 'bg-light text-dark';
+            }
+        }
+
+        function getImportanceBadge(importance) {
+            switch (importance) {
+                case 'High':
+                    return 'bg-danger';
+                case 'Medium':
+                    return 'bg-warning text-dark';
+                case 'Low':
+                    return 'bg-success';
+                default:
+                    return 'bg-light text-dark';
+            }
+        }
+
+        
         }); // End of DOMContentLoaded
     </script>
 </body>
