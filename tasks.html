@@ -799,7 +799,7 @@
             const userRole = sessionStorage.getItem('userRole') || 'Manager';
             const isManager = userRole.toLowerCase() === 'manager'; // Make check case-insensitive
 
-            const newText = `Welcome, ${loggedInUser} (${userRole})`;
+            const newText = `Welcome, ${loggedInUser.slice(0 , -14)} (${userRole})`;
             welcomeMessageElement.textContent = newText;
 
             // Show manager dropdown if user is a manager
