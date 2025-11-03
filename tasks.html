@@ -326,13 +326,7 @@
                                 <canvas id="individualStatusChart"></canvas>
                             </div>
                         </div>
-                        <!-- Graph 3 -->
-                        <div class="card shadow-sm rounded-3">
-                            <div class="card-body">
-                                <h3 class="h6 card-title">Deadline Performance (Last 6 Tasks)</h3>
-                                <canvas id="individualDeadlineChart"></canvas>
-                            </div>
-                        </div>
+                        <!-- REMOVED Deadline Performance Chart -->
                     </div>
                 </div>
             </div>
@@ -408,9 +402,7 @@
                     <div class="col-lg-5">
                         <h2 class="h5 mb-3">Team Analytics</h2>
 
-
                         <!-- Graph 1 -->
-
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
                                 <h3 class="h6 card-title">Team Productivity per Month (Tasks Completed)</h3>
@@ -433,13 +425,7 @@
                                 <canvas id="teamCategoryChart"></canvas>
                             </div>
                         </div>
-                        <!-- Graph 3 -->
-                        <div class="card shadow-sm rounded-3">
-                            <div class="card-body">
-                                <h3 class="h6 card-title">Project Burndown (Demo)</h3>
-                                <canvas id="teamBurndownChart"></canvas>
-                            </div>
-                        </div>
+                        <!-- REMOVED Burndown Chart -->
                     </div>
                 </div>
             </div>
@@ -656,41 +642,35 @@
             };
             
             // Mock Data for a "user"
+            // REMOVED 'deadline' data
             let userChartData = {
                 "Owais": {
                     productivity: [5, 8, 12, 10, 14, 9],
                     status: [4, 2, 1, 3], // In Progress, Pending, Blocked, Not Started
-                    deadline: [5, 3, 4, 5, 2, 4] // On Time, 1 Day Late, 2+ Days Late, On Time, Blocked, On Time
                 },
                 "Mahi": {
                     productivity: [10, 12, 8, 15, 11, 13],
                     status: [8, 1, 0, 2],
-                    deadline: [6, 0, 1, 5, 1, 6]
                 },
                 "Abdullah": {
                     productivity: [8, 9, 10, 10, 12, 11],
                     status: [5, 3, 1, 1],
-                    deadline: [4, 1, 0, 5, 0, 6]
                 },
                 "Zakaria": {
                     productivity: [4, 5, 3, 6, 5, 4],
                     status: [2, 2, 0, 4],
-                    deadline: [6, 0, 0, 6, 0, 6]
                 },
                 "Nabil": {
                     productivity: [4, 5, 3, 6, 5, 4],
                     status: [2, 2, 0, 4],
-                    deadline: [6, 0, 0, 6, 0, 6]
                 },
                 "Henry": {
                     productivity: [4, 5, 3, 6, 5, 4],
                     status: [2, 2, 0, 4],
-                    deadline: [6, 0, 0, 6, 0, 6]
                 },
                 "Hischem": {
                     productivity: [4, 5, 3, 6, 5, 4],
                     status: [2, 2, 0, 4],
-                    deadline: [6, 0, 0, 6, 0, 6]
                 }
             };
 
@@ -739,32 +719,7 @@
             });
             allCharts.push(individualStatusChart);
 
-            const ctxDeadline = document.getElementById('individualDeadlineChart').getContext('2d');
-            const individualDeadlineChart = new Chart(ctxDeadline, {
-                type: 'radar',
-                data: {
-                    labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
-                    datasets: [{
-                        label: 'Days to Deadline (0=On Time)',
-                        data: userChartData["Owais"].deadline.map(d => 6 - d), // Mock data
-                        backgroundColor: 'rgba(25, 135, 84, 0.2)',
-                        borderColor: 'rgba(25, 135, 84, 1)',
-                        pointBackgroundColor: 'rgba(25, 135, 84, 1)'
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            ticks: { color: getChartColors().font, backdropColor: 'transparent' },
-                            grid: { color: getChartColors().grid },
-                            pointLabels: { color: getChartColors().font }
-                        }
-                    },
-                    plugins: { legend: { labels: { color: getChartColors().font } } }
-                }
-            });
-            allCharts.push(individualDeadlineChart);
+            // --- REMOVED individualDeadlineChart ---
 
             // --- Team Charts ---
 
@@ -828,45 +783,7 @@
             });
             allCharts.push(teamCategoryChart);
 
-            const ctxTeamBurn = document.getElementById('teamBurndownChart').getContext('2d');
-            const teamBurndownChart = new Chart(ctxTeamBurn, {
-                type: 'line',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-                    datasets: [
-                        {
-                            label: 'Ideal Tasks Remaining',
-                            data: [40, 32, 24, 16, 8, 0],
-                            borderColor: 'rgba(108, 117, 125, 1)',
-                            borderDash: [5, 5],
-                            fill: false
-                        },
-                        {
-                            label: 'Actual Tasks Remaining',
-                            data: [40, 38, 30, 20, 15, 5], // Mock data
-                            borderColor: 'rgba(13, 110, 253, 1)',
-                            backgroundColor: 'rgba(13, 110, 253, 0.2)',
-                            fill: true,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        },
-                        x: { 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        }
-                    },
-                    plugins: { legend: { labels: { color: getChartColors().font } } }
-                }
-            });
-            allCharts.push(teamBurndownChart);
+            // --- REMOVED teamBurndownChart ---
 
             // --- View Toggle Logic ---
             const managerDropdown = document.getElementById('managerViewDropdown');
@@ -877,21 +794,19 @@
             
             const welcomeMessageElement = document.getElementById('welcomeMessage');
 
+            // Use 'I.B. Queen (Manager)' as fallback for prototype demo
+            const loggedInUser = sessionStorage.getItem('loggedInUser') || 'I.B. Queen';
+            const userRole = sessionStorage.getItem('userRole') || 'Manager';
+            const isManager = userRole.toLowerCase() === 'manager'; // Make check case-insensitive
 
-            const loggedInUser = sessionStorage.getItem('loggedInUser');
-            const isManager = sessionStorage.getItem('userRole') === 'admin';
-
-            const newText = `Welcome, ${loggedInUser.slice(0,-14)} (${sessionStorage.getItem('userRole')})`;
-
+            const newText = `Welcome, ${loggedInUser} (${userRole})`;
             welcomeMessageElement.textContent = newText;
-
 
             // Show manager dropdown if user is a manager
             if (isManager) {
                 managerDropdown.style.display = 'block';
             }
             else{
-
                 managerDropdown.style.display = 'none';
                 individualTasksTitle.innerHTML =  `<i class="bi bi-person-check me-2"></i> My Individual Tasks`;
                 individualAnalyticsTitle.textContent = `My Task Analytics`;
@@ -904,15 +819,11 @@
                 }
             });
 
-
             document.getElementById('team-tab').addEventListener('shown.bs.tab', () => {
                 if (isManager){
                     managerDropdown.style.display = 'none'; // Hide dropdown
                 }
             });
-
-
-
 
             // Handle manager view selection
             document.querySelectorAll('#managerViewDropdown .dropdown-item').forEach(item => {
@@ -929,7 +840,8 @@
 
                     // Update page titles
                     const possession = selectedUser.endsWith('s') ? "'" : "'s";
-                    const titleName = selectedUser === 'Owais' ? 'My' : `${selectedUser}${possession}`;
+                    // Use 'My' if manager is viewing themself (Owais), otherwise use name
+                    const titleName = (selectedUser === loggedInUser) ? 'My' : `${selectedUser}${possession}`;
                     individualTasksTitle.innerHTML = `<i class="bi bi-person-check me-2"></i>${titleName} Individual Tasks`;
                     individualAnalyticsTitle.textContent = `${titleName} Task Analytics`;
 
@@ -943,121 +855,121 @@
                     individualStatusChart.data.datasets[0].data = newData.status;
                     individualStatusChart.update();
                     
-                    individualDeadlineChart.data.datasets[0].data = newData.deadline.map(d => 6 - d);
-                    individualDeadlineChart.update();
+                    // --- REMOVED deadline chart update ---
                 });
             });
 
 
-
-
-        // Get the modal instance
-        const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
-        
-        // Get the "Save Task" button, the form, and the table body
-        const saveTaskButton = document.getElementById('saveTaskButton');
-        const addTaskForm = document.getElementById('addTaskForm');
-        const tableBody = document.querySelector(".table-hover tbody");
-
-        // Add a click event listener to the "Save Task" button
-        saveTaskButton.addEventListener('click', function() {
+            // Get the modal instance
+            const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
             
-            // Get the values from the form fields
-            const taskName = document.getElementById('taskName').value;
-            const taskDueDate = document.getElementById('taskDueDate').value;
-            const taskStatus = document.getElementById('taskStatus').value;
-            const taskImportance = document.getElementById('taskImportance').value;
+            // Get the "Save Task" button, the form, and the table body
+            const saveTaskButton = document.getElementById('saveTaskButton');
+            const addTaskForm = document.getElementById('addTaskForm');
+            // More specific selector to only get the *individual* task list body
+            const tableBody = document.querySelector("#individualTasksView .table-hover tbody");
 
-            // Simple validation: check if task name or due date are empty
-            if (!taskName || !taskDueDate) {
-                alert('Please fill out both the Task and Due Date fields.');
-                return; // Stop the function from running further
+            // Add a click event listener to the "Save Task" button
+            saveTaskButton.addEventListener('click', function() {
+                
+                // Get the values from the form fields
+                const taskName = document.getElementById('taskName').value;
+                const taskDueDate = document.getElementById('taskDueDate').value;
+                const taskStatus = document.getElementById('taskStatus').value;
+                const taskImportance = document.getElementById('taskImportance').value;
+
+                // Simple validation: check if task name or due date are empty
+                if (!taskName || !taskDueDate) {
+                    // Replaced alert with a console log for prototype
+                    console.error('Please fill out both the Task and Due Date fields.');
+                    // You could add aBootstrap alert here instead
+                    return; // Stop the function from running further
+                }
+
+                // --- Format the data to match your table ---
+                
+                // Format the date (e.g., from "2025-11-05" to "05 Nov 2025")
+                const formattedDate = formatDate(taskDueDate);
+                
+                // Get the correct badge class for Status
+                const statusBadge = getStatusBadge(taskStatus);
+                
+                // Get the correct badge class for Importance
+                const importanceBadge = getImportanceBadge(taskImportance);
+
+                // --- Create the new table row HTML ---
+                
+                // Create a unique ID for the new task's collapsible details
+                const taskCount = tableBody.querySelectorAll("tr:not(.task-details-row)").length + 1;
+                const newTaskId = `indTask${taskCount}`;
+
+                // Create the HTML for the new task row and its details row
+                const newRowHTML = `
+                    <tr>
+                        <td class="ps-3">
+                            <a class="task-toggle" data-bs-toggle="collapse" href="#${newTaskId}" role="button">${taskName}</a>
+                        </td>
+                        <td>${formattedDate}</td>
+                        <td><span class="badge ${statusBadge}">${taskStatus}</span></td>
+                        <td><span class="badge ${importanceBadge}">${taskImportance}</span></td>
+                    </tr>
+                    <tr class="collapse task-details-row" id="${newTaskId}">
+                        <td colspan="4" class="p-3">
+                            <p class="mb-1"><strong>Desc:</strong> (No description provided)</p>
+                            <p class="mb-0"><strong>Category:</strong> (Not specified)</p>
+                        </td>
+                    </tr>
+                `;
+
+                // Add the new row HTML to the end of the table body
+                tableBody.insertAdjacentHTML('beforeend', newRowHTML);
+
+                // Reset the form fields for the next entry
+                addTaskForm.reset();
+                
+                // Hide the modal popup
+                addTaskModal.hide();
+            });
+
+
+            // --- Helper Functions ---
+
+            function formatDate(dateString) {
+                // Converts "YYYY-MM-DD" to "DD Mon YYYY"
+                const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone issues
+                const options = { day: '2-digit', month: 'short', year: 'numeric' };
+                return date.toLocaleDateString('en-GB', options);
             }
 
-            // --- Format the data to match your table ---
-            
-            // Format the date (e.g., from "2025-11-05" to "05 Nov 2025")
-            const formattedDate = formatDate(taskDueDate);
-            
-            // Get the correct badge class for Status
-            const statusBadge = getStatusBadge(taskStatus);
-            
-            // Get the correct badge class for Importance
-            const importanceBadge = getImportanceBadge(taskImportance);
-
-            // --- Create the new table row HTML ---
-            
-            // Create a unique ID for the new task's collapsible details
-            const taskCount = tableBody.querySelectorAll("tr:not(.task-details-row)").length + 1;
-            const newTaskId = `indTask${taskCount}`;
-
-            // Create the HTML for the new task row and its details row
-            const newRowHTML = `
-                <tr>
-                    <td class="ps-3">
-                        <a class="task-toggle" data-bs-toggle="collapse" href="#${newTaskId}" role="button">${taskName}</a>
-                    </td>
-                    <td>${formattedDate}</td>
-                    <td><span class="badge ${statusBadge}">${taskStatus}</span></td>
-                    <td><span class="badge ${importanceBadge}">${taskImportance}</span></td>
-                </tr>
-                <tr class="collapse task-details-row" id="${newTaskId}">
-                    <td colspan="4" class="p-3">
-                        <p class="mb-1"><strong>Desc:</strong> (No description provided)</p>
-                        <p class="mb-0"><strong>Category:</strong> (Not specified)</p>
-                    </td>
-                </tr>
-            `;
-
-            // Add the new row HTML to the end of the table body
-            tableBody.insertAdjacentHTML('beforeend', newRowHTML);
-
-            // Reset the form fields for the next entry
-            addTaskForm.reset();
-            
-            // Hide the modal popup
-            addTaskModal.hide();
-        });
-
-
-        // --- Helper Functions ---
-
-        function formatDate(dateString) {
-            // Converts "YYYY-MM-DD" to "DD Mon YYYY"
-            const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone issues
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
-            return date.toLocaleDateString('en-GB', options);
-        }
-
-        function getStatusBadge(status) {
-            switch (status) {
-                case 'Pending':
-                    return 'bg-warning';
-                case 'In Progress':
-                    return 'bg-info';
-                case 'Completed':
-                    return 'bg-success';
-                case 'Not Started':
-                    return 'bg-secondary';
-                default:
-                    return 'bg-light text-dark';
+            function getStatusBadge(status) {
+                switch (status) {
+                    case 'Pending':
+                        return 'bg-warning';
+                    case 'In Progress':
+                        return 'bg-info';
+                    case 'Completed':
+                        return 'bg-success';
+                    case 'Not Started':
+                        return 'bg-secondary';
+                    default:
+                        return 'bg-light text-dark';
+                }
             }
-        }
 
-        function getImportanceBadge(importance) {
-            switch (importance) {
-                case 'High':
-                    return 'bg-danger';
-                case 'Medium':
-                    return 'bg-warning text-dark';
-                case 'Low':
-                    return 'bg-success';
-                default:
-                    return 'bg-light text-dark';
+            function getImportanceBadge(importance) {
+                switch (importance) {
+                    case 'High':
+                        return 'bg-danger';
+                    case 'Medium':
+                        return 'bg-warning text-dark';
+                    case 'Low':
+                        return 'bg-success';
+                    default:
+                        return 'bg-light text-dark';
+                }
             }
-        }
 
-        
+            
         }); // End of DOMContentLoaded
     </script>
 </body>
