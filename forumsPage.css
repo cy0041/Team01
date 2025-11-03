@@ -220,12 +220,12 @@ body.dark-mode footer a:hover {
 
 /* MODIFIED: Changed category badges from blue/green to gray */
 .badge-technical {
-    background: #495057; /* Darker gray */
+    background: rgb(50, 128, 173); /* Darker gray */
     color: white;
 }
 
 .badge-non-technical {
-    background: #6c757d; /* Lighter gray */
+    background: rgb(12, 181, 12); /* Lighter gray */
     color: white;
 }
 
