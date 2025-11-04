@@ -863,13 +863,13 @@
             // Get the modal instance
             const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
             
-            // Get the "Save Task" button, the form, and the table body
+            // Get the Save Task button, the form, and the table body
             const saveTaskButton = document.getElementById('saveTaskButton');
             const addTaskForm = document.getElementById('addTaskForm');
             // More specific selector to only get the *individual* task list body
             const tableBody = document.querySelector("#individualTasksView .table-hover tbody");
 
-            // Add a click event listener to the "Save Task" button
+            // Add a click event listener to the Save Task button
             saveTaskButton.addEventListener('click', function() {
                 
                 // Get the values from the form fields
@@ -878,11 +878,11 @@
                 const taskStatus = document.getElementById('taskStatus').value;
                 const taskImportance = document.getElementById('taskImportance').value;
 
-                // Simple validation: check if task name or due date are empty
+                // Simple validation to check if task name or due date are empty
                 if (!taskName || !taskDueDate) {
-                    // Replaced alert with a console log for prototype
+                    
                     console.error('Please fill out both the Task and Due Date fields.');
-                    // You could add aBootstrap alert here instead
+                    
                     return; // Stop the function from running further
                 }
 
@@ -936,7 +936,6 @@
 
             function formatDate(dateString) {
                 // Converts "YYYY-MM-DD" to "DD Mon YYYY"
-                const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone issues
                 const options = { day: '2-digit', month: 'short', year: 'numeric' };
                 return date.toLocaleDateString('en-GB', options);
             }
