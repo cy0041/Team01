@@ -627,7 +627,7 @@ function applyTextSize(size)
         document.body.style.fontSize = '1.3em';
         icon.className = 'bi bi-dash-lg';
     } else if (size === 'regular') {
-        document.body.style.fontSize = '';
+        document.body.style.fontSize = '1.6em';
         icon.className = 'bi bi-plus-lg';
     }
 }
