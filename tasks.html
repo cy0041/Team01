@@ -3,125 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Title -->
     <title>MIA Connect Tasks</title>
-    <!-- Load Bootstrap 5 CSS via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Load Bootstrap Icons via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <style>
-        /* --- This CSS is copied from mainMenu.html for 100% consistency --- */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; 
-            transition: background-color 0.3s, color 0.3s, font-size 0.3s; 
-            font-size: 1rem; 
-        }
-        body.enlarged-text {
-            font-size: 1.25rem; 
-        }
-        body[data-bs-theme="dark"] {
-            background-color: #212529; 
-        }
-        .bg-mia-dark {
-            background-color: #1a1a1a !important; 
-        }
-        .main-content {
-            padding-bottom: 80px; 
-        }
-        .logo-img-nav {
-            height: 40px; 
-        }
-        .logo-img-footer {
-            height: 50px; 
-        }
-        .hover-link:hover {
-            color: #0d6efd !important; 
-        }
-        .btn-acc {
-            color: var(--bs-body-color);
-            border: 1px solid var(--bs-border-color);
-        }
-        .task-details-row {
-            background-color: #fdfdfd;
-        }
-        body[data-bs-theme="dark"] .task-details-row {
-            background-color: #2c3034;
-        }
-        .task-toggle {
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .task-toggle:hover {
-            text-decoration: underline;
-        }
-        #pageFooter.bg-light .text-light {
-            color: #212529 !important;
-        }
-        #pageFooter.bg-light .text-secondary {
-            color: #6c757d !important;
-        }
-        #pageFooter.bg-light .hover-link {
-            color: #212529 !important;
-        }
-         #pageFooter.bg-light .hover-link:hover {
-            color: #0d6efd !important;
-        }
-        /* --- End of Copied CSS --- */
-
-        /* --- NEW CSS for Tasks Page --- */
-
-        /* Scrollable Task List */
-        .task-list-container {
-            height: 600px; /* Fixed height for the list */
-            overflow-y: auto; /* Adds the vertical scrollbar */
-        }
-
-        /* Ensure table header is sticky within the scrollable container */
-        .task-list-container thead {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        /* Ensure card headers match the table header in dark mode */
-        body[data-bs-theme="dark"] .table-light {
-             --bs-table-bg: #343a40;
-             --bs-table-color: #fff;
-        }
-
-        /* Manager view dropdown (starts hidden, shown by JS) */
-        #managerViewDropdown {
-            display: none; 
-        }
-    </style>
+    <link rel="stylesheet" href="menu_tasks.css">
 </head>
 <body data-bs-theme="light">
 
-    <!-- 1. Navigation Bar (Copied from mainMenu.html) -->
     <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
         <div class="container-fluid container-lg">
-            <!-- Company Logo -->
             <a class="navbar-brand" href="mainMenu.html">
                 <img src="mia_logo.jpg" 
-                     alt="The Make-It-All Company Logo" 
+                     alt="The Make It All Company Logo" 
                      class="logo-img-nav"
                      onerror="this.onerror=null; this.src='https://placehold.co/200x40/cccccc/333333?text=MIA';" 
                 >
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- Main (Dashboard) Link -->
                     <li class="nav-item">
                         <a class="nav-link" href="mainMenu.html">Main</a>
                     </li>
-                    <!-- Tasks Link (Now Active) -->
                     <li class="nav-item">
                         <a class="nav-link active fw-bold" aria-current="page" href="tasks.html">Tasks</a>
                     </li>
@@ -130,7 +37,6 @@
                     </li>
                 </ul>
                 
-                <!-- Accessibility, Dark Mode, and User/Logout Section -->
                 <div class="d-flex align-items-center">
                     <button id="textEnlargeToggle" class="btn btn-sm btn-outline-secondary me-3" title="Toggle Text Size">
                         <i id="textSizeIcon" class="bi bi-plus-lg"></i>
@@ -152,34 +58,28 @@
         </div>
     </nav>
 
-    <!-- 2. Main Content Area (Tasks Page) -->
     <main class="container-lg my-4 main-content">
-
-        <!-- Page Header -->
         <h1 class="mb-4">Task Management</h1>
 
-        <!-- View Toggles (Individual/Team + Manager) -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <!-- Individual/Team Toggle Pills -->
             <ul class="nav nav-pills" id="taskViewToggle" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="individual-tab" data-bs-toggle="pill" data-bs-target="#individualTasksView" type="button" role="tab" aria-controls="individualTasksView" aria-selected="true">
+                    <button class="nav-link active" id="individual-tab" data-bs-toggle="pill" data-bs-target="#individualTasksView" type="button" role="tab">
                         <i class="bi bi-person-fill me-1"></i> Individual
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="team-tab" data-bs-toggle="pill" data-bs-target="#teamTasksView" type="button" role="tab" aria-controls="teamTasksView" aria-selected="false">
+                    <button class="nav-link" id="team-tab" data-bs-toggle="pill" data-bs-target="#teamTasksView" type="button" role="tab">
                         <i class="bi bi-people-fill me-1"></i> Team
                     </button>
                 </li>
             </ul>
 
-            <!-- Manager View Dropdown (Simulated) -->
             <div class="dropdown" id="managerViewDropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="managerSelect" data-bs-toggle="dropdown" aria-expanded="false">
-                    Viewing as: Owais
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="managerSelect" data-bs-toggle="dropdown">
+                    Viewing as Owais
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="managerSelect">
+                <ul class="dropdown-menu">
                     <li><a class="dropdown-item active" href="#" data-user="Owais">Owais</a></li>
                     <li><a class="dropdown-item" href="#" data-user="Mahi">Mahi</a></li>
                     <li><a class="dropdown-item" href="#" data-user="Abdullah">Abdullah</a></li>
@@ -191,24 +91,17 @@
             </div>
         </div>
 
-        <!-- Tab Content: Holds both Individual and Team Views -->
         <div class="tab-content" id="taskViewContent">
             
-            <!-- A. INDIVIDUAL TASKS VIEW -->
-            <div class="tab-pane fade show active" id="individualTasksView" role="tabpanel" aria-labelledby="individual-tab">
+            <div class="tab-pane fade show active" id="individualTasksView" role="tabpanel">
                 <div class="row g-4">
-                    <!-- Left Column: Scrollable Task List -->
                     <div class="col-lg-7">
                         <div class="card shadow-lg rounded-3">
-                            <div class="card-header p-3">
-                                <div class="d-flex justify-content-between">
-                                    <h2 class="h5 mb-0" id="individualTasksTitle"><i class="bi bi-person-check me-2"></i>Owais' Individual Tasks</h2>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-                                        <i class="bi bi-plus">Add Task</i>
-                                    </button>
-
-                                </div>
-                                
+                            <div class="card-header p-3 d-flex justify-content-between align-items-center">
+                                <h2 class="h5 mb-0" id="individualTasksTitle"><i class="bi bi-person-check me-2"></i>Owais Individual Tasks</h2>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                                    <i class="bi bi-plus-lg"></i> Add Task
+                                </button>
                             </div>
                             <div class="card-body p-0 task-list-container">
                                 <div class="table-responsive">
@@ -222,119 +115,54 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- 10 Dummy Tasks -->
-                                            <!-- Task 1 -->
                                             <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button">Finalise Requirement Listings (R1)</a></td>
+                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button">Finalise Requirement Listings R1</a></td>
                                                 <td>30 Oct 2025</td>
-                                                <td><span class="badge bg-warning">Pending</span></td>
+                                                <td><span class="badge bg-warning text-dark">Pending</span></td>
                                                 <td><span class="badge bg-danger text-dark">High</span></td>
                                             </tr>
-                                            <tr class="collapse task-details-row" id="indTask1"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Finalise R1 doc based on client feedback.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Task 2 -->
+                                            <tr class="collapse task-details-row" id="indTask1"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Finalise R1 doc based on client feedback.</p><p class="mb-0"><strong>Category:</strong> Non Technical</p></td></tr>
                                             <tr>
                                                 <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask2" role="button">Review firewall log analysis</a></td>
                                                 <td>05 Nov 2025</td>
-                                                <td><span class="badge bg-info">In Progress</span></td>
+                                                <td><span class="badge bg-info text-dark">In Progress</span></td>
                                                 <td><span class="badge bg-warning text-dark">Medium</span></td>
                                             </tr>
                                             <tr class="collapse task-details-row" id="indTask2"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Weekly analysis of firewall logs for unusual activity.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Task 3 -->
                                             <tr>
                                                 <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask3" role="button">Submit Q4 travel expenses</a></td>
                                                 <td>15 Nov 2025</td>
                                                 <td><span class="badge bg-secondary">Not Started</span></td>
                                                 <td><span class="badge bg-success text-dark">Low</span></td>
                                             </tr>
-                                            <tr class="collapse task-details-row" id="indTask3"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Collate Q4 receipts and submit via finance portal.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Task 4 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask4" role="button">Draft Part II Project Plan</a></td>
-                                                <td>20 Nov 2025</td>
-                                                <td><span class="badge bg-secondary">Not Started</span></td>
-                                                <td><span class="badge bg-danger text-dark">High</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask4"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Outline database schema and API endpoints for Part II.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Task 5 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask5" role="button">Book team training session</a></td>
-                                                <td>22 Nov 2025</td>
-                                                <td><span class="badge bg-success">Completed</span></td>
-                                                <td><span class="badge bg-success text-dark">Low</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask5"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Book meeting room and send invites for new PHP library training.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Task 6 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask6" role="button">Debug knowledge hub search func</a></td>
-                                                <td>25 Nov 2025</td>
-                                                <td><span class="badge bg-info">In Progress</span></td>
-                                                <td><span class="badge bg-warning text-dark">Medium</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask6"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Search function is returning 500 error on empty query.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Task 7 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask7" role="button">Order new printing paper</a></td>
-                                                <td>28 Nov 2025</td>
-                                                <td><span class="badge bg-secondary">Not Started</span></td>
-                                                <td><span class="badge bg-success text-dark">Low</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask7"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Follow the new "How to order printing paper" guide.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Task 8 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask8" role="button">Prepare Q4 review presentation</a></td>
-                                                <td>01 Dec 2025</td>
-                                                <td><span class="badge bg-secondary">Not Started</span></td>
-                                                <td><span class="badge bg-warning text-dark">Medium</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask8"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Summarise team performance for Q4 management review.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Task 9 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask9" role="button">Resolve React dependency conflict</a></td>
-                                                <td>02 Dec 2025</td>
-                                                <td><span class="badge bg-danger">Blocked</span></td>
-                                                <td><span class="badge bg-danger text-dark">High</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask9"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> `react-router` and `react-dom` versions are conflicting after last pull.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Task 10 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#indTask10" role="button">Onboard new junior dev</a></td>
-                                                <td>05 Dec 2025</td>
-                                                <td><span class="badge bg-secondary">Not Started</span></td>
-                                                <td><span class="badge bg-warning text-dark">Medium</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="indTask10"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Walk through the company coding standards and dev environment setup.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
+                                            <tr class="collapse task-details-row" id="indTask3"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Collate Q4 receipts and submit via finance portal.</p><p class="mb-0"><strong>Category:</strong> Non Technical</p></td></tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Right Column: Individual Graphs -->
+                    
                     <div class="col-lg-5">
                         <h2 class="h5 mb-3" id="individualAnalyticsTitle">My Task Analytics</h2>
-                        <!-- Graph 1 -->
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
-                                <h3 class="h6 card-title">Productivity per Month (Tasks Completed)</h3>
+                                <h3 class="h6 card-title">Productivity Tasks Completed</h3>
                                 <canvas id="individualProductivityChart"></canvas>
                             </div>
                         </div>
-                        <!-- Graph 2 -->
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
-                                <h3 class="h6 card-title">Task Status Breakdown (All)</h3>
+                                <h3 class="h6 card-title">Task Status Breakdown</h3>
                                 <canvas id="individualStatusChart"></canvas>
                             </div>
                         </div>
-                        <!-- REMOVED Deadline Performance Chart -->
                     </div>
                 </div>
             </div>
 
-            <!-- B. TEAM TASKS VIEW -->
-            <div class="tab-pane fade" id="teamTasksView" role="tabpanel" aria-labelledby="team-tab">
+            <div class="tab-pane fade" id="teamTasksView" role="tabpanel">
                 <div class="row g-4">
-                    <!-- Left Column: Scrollable Team Task List -->
                     <div class="col-lg-7">
                         <div class="card shadow-lg rounded-3">
                             <div class="card-header p-3">
@@ -352,15 +180,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Team Task 1 -->
                                             <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button">COB290 Prototype Submission (R1/P)</a></td>
+                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button">COB290 Prototype Submission R1 P</a></td>
                                                 <td>03 Nov 2025</td>
                                                 <td><span class="badge bg-warning text-dark">Pending</span></td>
                                                 <td><span class="badge bg-danger text-dark">High</span></td>
                                             </tr>
-                                            <tr class="collapse task-details-row" id="teamTask1"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Submit final prototype and R1 report to Learn.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Team Task 2 -->
+                                            <tr class="collapse task-details-row" id="teamTask1"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Submit final prototype and R1 report to Learn.</p><p class="mb-0"><strong>Category:</strong> Non Technical</p></td></tr>
                                             <tr>
                                                 <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask2" role="button">Q3 Financial Reporting System Upgrade</a></td>
                                                 <td>30 Oct 2025</td>
@@ -368,151 +194,110 @@
                                                 <td><span class="badge bg-warning text-dark">Medium</span></td>
                                             </tr>
                                             <tr class="collapse task-details-row" id="teamTask2"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Deploy v2.1 patch to financial reporting system.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Team Task 3 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask3" role="button">Internal Security Audit Completion</a></td>
-                                                <td>15 Nov 2025</td>
-                                                <td><span class="badge bg-info">In Progress</span></td>
-                                                <td><span class="badge bg-danger text-dark">High</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="teamTask3"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Complete internal audit checklist for ISO 27001 compliance.</p><p class="mb-0"><strong>Category:</strong> Technical</p></td></tr>
-                                            <!-- Team Task 4 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask4" role="button">Plan Knowledge Hub Migration</a></td>
-                                                <td>01 Dec 2025</td>
-                                                <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                                <td><span class="badge bg-warning text-dark">Medium</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="teamTask4"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Plan migration from old Confluence space to new MIA Connect system.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
-                                            <!-- Team Task 5 -->
-                                            <tr>
-                                                <td class="ps-3"><a class="task-toggle" data-bs-toggle="collapse" href="#teamTask5" role="button">Client Demo (Part 1) Preparation</a></td>
-                                                <td>04 November 2025</td>
-                                                <td><span class="badge bg-info">In Progress</span></td>
-                                                <td><span class="badge bg-danger text-dark">High</span></td>
-                                            </tr>
-                                            <tr class="collapse task-details-row" id="teamTask5"><td colspan="4" class="p-3"><p class="mb-1"><strong>Desc:</strong> Finalise slides and presentation script for the client demo.</p><p class="mb-0"><strong>Category:</strong> Non-Technical</p></td></tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Right Column: Team Graphs -->
+                    
                     <div class="col-lg-5">
                         <h2 class="h5 mb-3">Team Analytics</h2>
-
-                        <!-- Graph 1 -->
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
-                                <h3 class="h6 card-title">Team Productivity per Month (Tasks Completed)</h3>
+                                <h3 class="h6 card-title">Team Productivity</h3>
                                 <canvas id="teamProductivityChart"></canvas>
                             </div>
                         </div>
-
-                         <!-- 
                         <div class="card shadow-sm rounded-3 mb-3">
                             <div class="card-body">
-                                <h3 class="h6 card-title">Task Contribution by Member</h3>
-                                <canvas id="teamContributionChart"></canvas>
-                            </div>
-                        </div>
-                        -->
-                        <!-- Graph 2 -->
-                        <div class="card shadow-sm rounded-3 mb-3">
-                            <div class="card-body">
-                                <h3 class="h6 card-title">Task Categories (All Team)</h3>
+                                <h3 class="h6 card-title">Task Categories</h3>
                                 <canvas id="teamCategoryChart"></canvas>
                             </div>
                         </div>
-                        <!-- REMOVED Burndown Chart -->
                     </div>
                 </div>
             </div>
         </div>
-        
 
-        <div class="modal fade" id = "addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addTaskModelLabel">Add New Task</h5>
+                        <h5 class="modal-title">Add New Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="addTaskForm">
                             <div class="mb-3">
-                                <label for="taskName" class="form-label">Task</label>
-                                <input type="text" class="form-control" id="taskName" placeholder="what task needs to be done?" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label></label>
-
-
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="taskDueDate" class="form-label">Due Date</label>
-                                <input type="date" class="form-control" id="taskDueDate" required>
+                                <label for="taskName" class="form-label">Task Title</label>
+                                <input type="text" class="form-control" id="taskName" placeholder="What needs to be done?" required>
                             </div>
                             <div class="mb-3">
-                                <label for="taskStatus" class="form-label">Status</label>
-                                <select class="form-select" id="taskStatus">
-                                    <option value="Not Started">Not Started</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
+                                <label for="taskDesc" class="form-label">Description</label>
+                                <textarea class="form-control" id="taskDesc" rows="2" placeholder="Enter task details"></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label for="taskImportance" class="form-label">Importance</label>
-                                <select class="form-select" id="taskImportance">
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="taskDueDate" class="form-label">Due Date</label>
+                                    <input type="date" class="form-control" id="taskDueDate" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="taskCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="taskCategory">
+                                        <option value="Technical">Technical</option>
+                                        <option value="Non Technical">Non Technical</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="taskStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="taskStatus">
+                                        <option value="Not Started">Not Started</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="taskImportance" class="form-label">Importance</label>
+                                    <select class="form-select" id="taskImportance">
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
-
-
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="saveTaskButton">Save Task</button>
                     </div>
-
-
                 </div>
-
             </div>
-
-
-
-
         </div>
     </main>
 
-    <!-- 3. Footer (Copied from mainMenu.html) -->
     <footer id="pageFooter" class="bg-light text-dark pt-5 pb-3 border-top">
         <div class="container-lg">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <img src="mia_logo.jpg" alt="The Make-It-All Company Logo" class="logo-img-footer mb-2" onerror="this.onerror=null; this.src='https.placehold.co/250x50/cccccc/333333?text=MIA';">
-                    <p class="small" id="footerSubtitle">The productivity and knowledge management system for the Make-It-All Company.</p>
+                    <img src="mia_logo.jpg" alt="The Make It All Company Logo" class="logo-img-footer mb-2" onerror="this.onerror=null; this.src='https://placehold.co/250x50/cccccc/333333?text=MIA';">
+                    <p class="small" id="footerSubtitle">The productivity and knowledge management system for the Make It All Company.</p>
                 </div>
                 <div class="col-md-4 mb-4">
                     <h5 class="border-bottom border-secondary pb-2 mb-3">Contact Information</h5>
                     <ul class="list-unstyled small" id="footerContact">
-                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i> <a href ="https://maps.app.goo.gl/nd6SFfBtozboQu9b8">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i> <a href="https://www.google.com/maps?q=Science+and+Enterprise+Park,+Loughborough+LE11+3QF" target="_blank">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
                         <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary"></i>T: <a href="tel:01509888999" class="text-decoration-none hover-link">01509 888999</a></li>
                         <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary"></i>Email: <a href="mailto:king@make-it-all.co.uk" class="text-decoration-none hover-link">king@make-it-all.co.uk</a></li>
                         <li class="mb-2"><i class="bi bi-globe me-2 text-primary"></i>URL: <a href="http://www.make-it-all.co.uk/" target="_blank" class="text-decoration-none hover-link">www.make-it-all.co.uk</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5 class="border-bottom border-secondary pb-2 mb-3">System Resources (Demo)</h5>
+                    <h5 class="border-bottom border-secondary pb-2 mb-3">System Resources Demo</h5>
                     <ul class="list-unstyled small" id="footerLinks">
                         <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Knowledge Hub</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Admin Support</a></li>
@@ -521,19 +306,20 @@
                 </div>
             </div>
             <div class="text-center pt-3 border-top border-secondary">
-                <p class="mb-0 text-secondary small">&copy; 2025 The Make-It-All Company. All rights reserved. Intranet Version 1.0 (Prototype).</p>
+                <p class="mb-0 text-secondary small">© 2025 The Make It All Company. All rights reserved. Intranet Version 1.0 Prototype.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Load Bootstrap 5 JS Bundle via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
-    <!-- **** NEW: Load Chart.js (Approved Library) **** -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
     <script>
-        // --- 1. Theme Switching Logic (Copied from mainMenu.html) ---
+        // Global Variables
+        let allCharts = []; 
+        let currentTheme = 'light';
+
+        // Theme Switching Logic
         const themeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const modeIcon = document.getElementById('modeIcon');
@@ -542,22 +328,19 @@
         const footerSubtitle = document.getElementById('footerSubtitle');
         const footerLinks = document.querySelectorAll('#footerLinks a, #footerContact a');
 
-        // This is a global variable to hold all our charts
-        let allCharts = []; 
-        let currentTheme = 'light'; // Default theme
-
         function applyTheme(theme) {
-            currentTheme = theme; // Store current theme
+            currentTheme = theme;
             body.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
 
-            const chartFontColor = theme === 'dark' ? '#dee2e6' : '#495057';
-            const chartGridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+            const chartFont = theme === 'dark' ? '#dee2e6' : '#495057';
+            const chartGrid = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
 
             if (theme === 'dark') {
                 themeToggle.checked = true;
                 modeIcon.classList.remove('bi-sun-fill');
                 modeIcon.classList.add('bi-moon-fill');
+                
                 mainNavbar.classList.remove('navbar-light', 'bg-light');
                 mainNavbar.classList.add('navbar-dark', 'bg-mia-dark'); 
                 pageFooter.classList.remove('bg-light', 'text-dark');
@@ -568,6 +351,7 @@
                 themeToggle.checked = false;
                 modeIcon.classList.remove('bi-moon-fill');
                 modeIcon.classList.add('bi-sun-fill');
+                
                 mainNavbar.classList.remove('navbar-dark', 'bg-mia-dark');
                 mainNavbar.classList.add('navbar-light', 'bg-light'); 
                 pageFooter.classList.remove('bg-mia-dark', 'text-light');
@@ -576,19 +360,17 @@
                 footerLinks.forEach(link => link.classList.remove('text-light'));
             }
             
-            // **** NEW: Update all charts with new theme colours ****
             allCharts.forEach(chart => {
-                if (chart.options.scales) { // Handle charts with scales (Bar, Line, Radar)
+                if (chart.options.scales) {
                     Object.values(chart.options.scales).forEach(scale => {
-                        if (scale.ticks) scale.ticks.color = chartFontColor;
-                        if (scale.grid) scale.grid.color = chartGridColor;
-                        if (scale.pointLabels) scale.pointLabels.color = chartFontColor;
+                        if (scale.ticks) scale.ticks.color = chartFont;
+                        if (scale.grid) scale.grid.color = chartGrid;
                     });
                 }
-                if (chart.options.plugins && chart.options.plugins.legend) { // Handle all legends
-                    chart.options.plugins.legend.labels.color = chartFontColor;
+                if (chart.options.plugins && chart.options.plugins.legend) {
+                    chart.options.plugins.legend.labels.color = chartFont;
                 }
-                chart.update(); // Redraw chart with new colours
+                chart.update();
             });
         }
 
@@ -599,7 +381,7 @@
             applyTheme(themeToggle.checked ? 'dark' : 'light');
         });
 
-        // --- 2. Text Enlargement Logic (Copied from mainMenu.html) ---
+        // Text Enlargement Logic
         const textEnlargeToggle = document.getElementById('textEnlargeToggle');
         const textSizeIcon = document.getElementById('textSizeIcon');
         const TEXT_CLASS = 'enlarged-text';
@@ -627,12 +409,10 @@
             applyTextSize(!body.classList.contains(TEXT_CLASS));
         });
 
-        // --- 3. NEW: Task Page Specific Logic ---
-        
-        // --- Chart.js Initialisation ---
-        // We run this *after* the DOM is loaded
+        // Main Page Logic
         document.addEventListener('DOMContentLoaded', () => {
-            // Helper function to get theme-aware chart colours
+            
+            // Chart Colors Helper
             const getChartColors = () => {
                 const isDark = currentTheme === 'dark';
                 return {
@@ -641,40 +421,18 @@
                 };
             };
             
-            // Mock Data for a "user"
-            // REMOVED 'deadline' data
+            // User Mock Data
             let userChartData = {
-                "Owais": {
-                    productivity: [5, 8, 12, 10, 14, 9],
-                    status: [4, 2, 1, 3], // In Progress, Pending, Blocked, Not Started
-                },
-                "Mahi": {
-                    productivity: [10, 12, 8, 15, 11, 13],
-                    status: [8, 1, 0, 2],
-                },
-                "Abdullah": {
-                    productivity: [8, 9, 10, 10, 12, 11],
-                    status: [5, 3, 1, 1],
-                },
-                "Zakaria": {
-                    productivity: [4, 5, 3, 6, 5, 4],
-                    status: [2, 2, 0, 4],
-                },
-                "Nabil": {
-                    productivity: [4, 5, 3, 6, 5, 4],
-                    status: [2, 2, 0, 4],
-                },
-                "Henry": {
-                    productivity: [4, 5, 3, 6, 5, 4],
-                    status: [2, 2, 0, 4],
-                },
-                "Hischem": {
-                    productivity: [4, 5, 3, 6, 5, 4],
-                    status: [2, 2, 0, 4],
-                }
+                "Owais": { prod: [5, 8, 12, 10, 14, 9], status: [4, 2, 1, 3] },
+                "Mahi": { prod: [10, 12, 8, 15, 11, 13], status: [8, 1, 0, 2] },
+                "Abdullah": { prod: [8, 9, 10, 10, 12, 11], status: [5, 3, 1, 1] },
+                "Zakaria": { prod: [4, 5, 3, 6, 5, 4], status: [2, 2, 0, 4] },
+                "Nabil": { prod: [4, 5, 3, 6, 5, 4], status: [2, 2, 0, 4] },
+                "Henry": { prod: [4, 5, 3, 6, 5, 4], status: [2, 2, 0, 4] },
+                "Hischem": { prod: [4, 5, 3, 6, 5, 4], status: [2, 2, 0, 4] }
             };
 
-            // --- Individual Charts ---
+            // Initialize Charts
             const ctxProd = document.getElementById('individualProductivityChart').getContext('2d');
             const individualProductivityChart = new Chart(ctxProd, {
                 type: 'bar',
@@ -682,7 +440,7 @@
                     labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
                     datasets: [{
                         label: 'Tasks Completed',
-                        data: userChartData["Owais"].productivity,
+                        data: userChartData["Owais"].prod,
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
@@ -690,15 +448,8 @@
                 },
                 options: {
                     scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        },
-                        x: { 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        }
+                        y: { beginAtZero: true, ticks: { color: getChartColors().font }, grid: { color: getChartColors().grid } },
+                        x: { ticks: { color: getChartColors().font }, grid: { color: getChartColors().grid } }
                     },
                     plugins: { legend: { labels: { color: getChartColors().font } } }
                 }
@@ -719,10 +470,6 @@
             });
             allCharts.push(individualStatusChart);
 
-            // --- REMOVED individualDeadlineChart ---
-
-            // --- Team Charts ---
-
             const ctxProd1 = document.getElementById('teamProductivityChart').getContext('2d');
             const teamProductivityChart = new Chart(ctxProd1, {
                 type: 'bar',
@@ -730,7 +477,7 @@
                     labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
                     datasets: [{
                         label: 'Tasks Completed',
-                        data: userChartData["Mahi"].productivity,
+                        data: userChartData["Mahi"].prod,
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
@@ -738,42 +485,19 @@
                 },
                 options: {
                     scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        },
-                        x: { 
-                            ticks: { color: getChartColors().font }, 
-                            grid: { color: getChartColors().grid } 
-                        }
+                        y: { beginAtZero: true, ticks: { color: getChartColors().font }, grid: { color: getChartColors().grid } },
+                        x: { ticks: { color: getChartColors().font }, grid: { color: getChartColors().grid } }
                     },
                     plugins: { legend: { labels: { color: getChartColors().font } } }
                 }
             });
             allCharts.push(teamProductivityChart);
 
-            /*
-            const ctxTeamCont = document.getElementById('teamContributionChart').getContext('2d');
-            const teamContributionChart = new Chart(ctxTeamCont, {
-                type: 'pie',
-                data: {
-                    labels: ['Owais', 'Mahi', 'Abdullah', 'Zakaria','Nabil','Henry','Hischem'],
-                    datasets: [{
-                        data: [8, 12, 10, 5, 6, 11, 8], // Mock contributions
-                        backgroundColor: ['#E6EFE9', '#C5F4E0', '#C2EABA', '#A7C4A0', '#1A535C', '#4ECDC4','#FF9F1C']
-                    }]
-                },
-                options: { plugins: { legend: { labels: { color: getChartColors().font } } } }
-            });
-            allCharts.push(teamContributionChart);
-
-            */
             const ctxTeamCat = document.getElementById('teamCategoryChart').getContext('2d');
             const teamCategoryChart = new Chart(ctxTeamCat, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Technical', 'Non-Technical', 'Security', 'Admin'],
+                    labels: ['Technical', 'Non Technical', 'Security', 'Admin'],
                     datasets: [{
                         data: [15, 10, 5, 8],
                         backgroundColor: ['#dc3545', '#fd7e14', '#6f42c1', '#6c757d']
@@ -783,194 +507,123 @@
             });
             allCharts.push(teamCategoryChart);
 
-            // --- REMOVED teamBurndownChart ---
-
-            // --- View Toggle Logic ---
+            // View Toggle Logic
             const managerDropdown = document.getElementById('managerViewDropdown');
             const managerSelectButton = document.getElementById('managerSelect');
             const individualTab = document.getElementById('individual-tab');
             const individualTasksTitle = document.getElementById('individualTasksTitle');
             const individualAnalyticsTitle = document.getElementById('individualAnalyticsTitle');
-            
             const welcomeMessageElement = document.getElementById('welcomeMessage');
 
-            // Use 'I.B. Queen (Manager)' as fallback for prototype demo
-            const loggedInUser = sessionStorage.getItem('loggedInUser') || 'I.B. Queen';
-            const userRole = sessionStorage.getItem('userRole') || 'Manager';
-            const isManager = userRole.toLowerCase() === 'manager'; // Make check case-insensitive
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            const userName = loggedInUser ? loggedInUser.split('@')[0] : "Guest";
+            const userRole = sessionStorage.getItem('userRole') || "Staff";
+            const isManager = userRole.toLowerCase() === 'manager';
 
-            const newText = `Welcome, ${loggedInUser.slice(0 , -14)} (${userRole})`;
-            welcomeMessageElement.textContent = newText;
+            welcomeMessageElement.textContent = `Welcome, ${userName} (${userRole})`;
 
-            // Show manager dropdown if user is a manager
             if (isManager) {
                 managerDropdown.style.display = 'block';
-            }
-            else{
+            } else {
                 managerDropdown.style.display = 'none';
-                individualTasksTitle.innerHTML =  `<i class="bi bi-person-check me-2"></i> My Individual Tasks`;
+                individualTasksTitle.innerHTML = `<i class="bi bi-person-check me-2"></i>My Individual Tasks`;
                 individualAnalyticsTitle.textContent = `My Task Analytics`;
             }
 
-            // Handle switching between Individual and Team tabs
             individualTab.addEventListener('shown.bs.tab', () => {
-                if (isManager) {
-                    managerDropdown.style.display = 'block'; // Show dropdown
-                }
+                if (isManager) managerDropdown.style.display = 'block';
             });
 
             document.getElementById('team-tab').addEventListener('shown.bs.tab', () => {
-                if (isManager){
-                    managerDropdown.style.display = 'none'; // Hide dropdown
-                }
+                if (isManager) managerDropdown.style.display = 'none';
             });
 
-            // Handle manager view selection
             document.querySelectorAll('#managerViewDropdown .dropdown-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const selectedUser = e.target.dataset.user;
                     
-                    // Update button text
-                    managerSelectButton.textContent = `Viewing as: ${selectedUser}`;
-
-                    // Update dropdown active state
+                    managerSelectButton.textContent = `Viewing as ${selectedUser}`;
                     document.querySelectorAll('#managerViewDropdown .dropdown-item').forEach(i => i.classList.remove('active'));
                     e.target.classList.add('active');
 
-                    // Update page titles
                     const possession = selectedUser.endsWith('s') ? "'" : "'s";
-                    // Use 'My' if manager is viewing themself (Owais), otherwise use name
-                    const titleName = (selectedUser === loggedInUser) ? 'My' : `${selectedUser}${possession}`;
+                    const titleName = (selectedUser === userName) ? 'My' : `${selectedUser}${possession}`;
+                    
                     individualTasksTitle.innerHTML = `<i class="bi bi-person-check me-2"></i>${titleName} Individual Tasks`;
                     individualAnalyticsTitle.textContent = `${titleName} Task Analytics`;
 
-                    // **** NEW: Update Chart Data ****
-                    // This simulates fetching new data for the selected user
-                    const newData = userChartData[selectedUser] || userChartData["Owais"]; // Fallback
+                    const newData = userChartData[selectedUser] || userChartData["Owais"];
                     
-                    individualProductivityChart.data.datasets[0].data = newData.productivity;
+                    individualProductivityChart.data.datasets[0].data = newData.prod;
                     individualProductivityChart.update();
                     
                     individualStatusChart.data.datasets[0].data = newData.status;
                     individualStatusChart.update();
-                    
-                    // --- REMOVED deadline chart update ---
                 });
             });
 
-
-            // Get the modal instance
+            // Add Task Logic
             const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
-            
-            // Get the Save Task button, the form, and the table body
             const saveTaskButton = document.getElementById('saveTaskButton');
             const addTaskForm = document.getElementById('addTaskForm');
-            // More specific selector to only get the *individual* task list body
             const tableBody = document.querySelector("#individualTasksView .table-hover tbody");
 
-            // Add a click event listener to the Save Task button
             saveTaskButton.addEventListener('click', function() {
-                
-                // Get the values from the form fields
                 const taskName = document.getElementById('taskName').value;
                 const taskDueDate = document.getElementById('taskDueDate').value;
                 const taskStatus = document.getElementById('taskStatus').value;
                 const taskImportance = document.getElementById('taskImportance').value;
+                const taskCategory = document.getElementById('taskCategory').value;
+                const taskDesc = document.getElementById('taskDesc').value || "No description provided";
 
-                // Simple validation to check if task name or due date are empty
                 if (!taskName || !taskDueDate) {
-                    
-                    console.error('Please fill out both the Task and Due Date fields.');
-                    
-                    return; // Stop the function from running further
+                    return; 
                 }
 
-                
-                
-                // Format the date
-                const formattedDate = formatDate(taskDueDate);
-                
-                // Get the correct badge class for Status
-                const statusBadge = getStatusBadge(taskStatus);
-                
-                // Get the correct badge class for Importance
-                const importanceBadge = getImportanceBadge(taskImportance);
+                const formatDate = (d) => {
+                    const date = new Date(d);
+                    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+                };
 
-                // --- Create the new table row HTML ---
-                
-                // Create a unique ID for the new task's collapsible details
+                const getStatusBadge = (s) => {
+                    if(s === 'Pending') return 'bg-warning text-dark';
+                    if(s === 'In Progress') return 'bg-info text-dark';
+                    if(s === 'Completed') return 'bg-success';
+                    return 'bg-secondary';
+                };
+
+                const getImportanceBadge = (i) => {
+                    if(i === 'High') return 'bg-danger text-dark';
+                    if(i === 'Medium') return 'bg-warning text-dark';
+                    return 'bg-success text-dark';
+                };
+
                 const taskCount = tableBody.querySelectorAll("tr:not(.task-details-row)").length + 1;
-                const newTaskId = `indTask${taskCount}`;
+                const newTaskId = `indTask${taskCount}${Date.now()}`;
 
-                // Create the HTML for the new task row and its details row
                 const newRowHTML = `
                     <tr>
                         <td class="ps-3">
                             <a class="task-toggle" data-bs-toggle="collapse" href="#${newTaskId}" role="button">${taskName}</a>
                         </td>
-                        <td>${formattedDate}</td>
-                        <td><span class="badge ${statusBadge}">${taskStatus}</span></td>
-                        <td><span class="badge ${importanceBadge}">${taskImportance}</span></td>
+                        <td>${formatDate(taskDueDate)}</td>
+                        <td><span class="badge ${getStatusBadge(taskStatus)}">${taskStatus}</span></td>
+                        <td><span class="badge ${getImportanceBadge(taskImportance)}">${taskImportance}</span></td>
                     </tr>
                     <tr class="collapse task-details-row" id="${newTaskId}">
                         <td colspan="4" class="p-3">
-                            <p class="mb-1"><strong>Desc:</strong> (No description provided)</p>
-                            <p class="mb-0"><strong>Category:</strong> (Not specified)</p>
+                            <p class="mb-1"><strong>Desc:</strong> ${taskDesc}</p>
+                            <p class="mb-0"><strong>Category:</strong> ${taskCategory}</p>
                         </td>
                     </tr>
                 `;
 
-                // Add the new row HTML to the end of the table body
-                tableBody.insertAdjacentHTML('beforeend', newRowHTML);
-
-                // Reset the form fields for the next entry
+                tableBody.insertAdjacentHTML('afterbegin', newRowHTML); // Add to top
                 addTaskForm.reset();
-                
-                // Hide the modal popup
                 addTaskModal.hide();
             });
-
-
-            
-
-            function formatDate(dateString) {
-                // Converts "YYYY-MM-DD" to "DD Mon YYYY"
-                const date = new Date(dateString);
-                const options = { day: '2-digit', month: 'short', year: 'numeric' };
-                return date.toLocaleDateString('en-GB', options);
-            }
-
-            function getStatusBadge(status) {
-                switch (status) {
-                    case 'Pending':
-                        return 'bg-warning';
-                    case 'In Progress':
-                        return 'bg-info';
-                    case 'Completed':
-                        return 'bg-success';
-                    case 'Not Started':
-                        return 'bg-secondary';
-                    default:
-                        return 'bg-light text-dark';
-                }
-            }
-
-            function getImportanceBadge(importance) {
-                switch (importance) {
-                    case 'High':
-                        return 'bg-danger';
-                    case 'Medium':
-                        return 'bg-warning text-dark';
-                    case 'Low':
-                        return 'bg-success';
-                    default:
-                        return 'bg-light text-dark';
-                }
-            }
-
-            
-        }); // End of DOMContentLoaded
+        });
     </script>
 </body>
 </html>
