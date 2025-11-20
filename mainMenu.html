@@ -4,110 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIA Connect Dashboard Prototype</title>
-    <!-- Load Bootstrap 5 CSS via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Load Bootstrap Icons via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <style>
-        /* Custom basic style for the internal system look */
+        /* --- 1. GENERAL STYLES --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Default Light grey background */
-            transition: background-color 0.3s, color 0.3s, font-size 0.3s; /* Smooth theme transition */
-            font-size: 1.25rem; /* Regular size */
+            background-color: #f4f6f8; /* Very light grey for contrast against white cards */
+            transition: background-color 0.3s, color 0.3s; 
+            font-size: 1.1rem; 
         }
-
-        /* Accessibility: Enlarged Text Option */
-        body.enlarged-text {
-            font-size: 1.5rem; 
-        }
-        
-        /* Dark Mode adjustments for body background when active */
         body[data-bs-theme="dark"] {
-            background-color: #212529; /* Dark background */
-        }
-        
-        /* Custom Footer Background Colour (used for Nav in Dark Mode) */
-        .bg-mia-dark {
-            background-color: #1a1a1a !important; 
+            background-color: #212529; 
         }
 
-        .main-content {
-            padding-bottom: 80px; /* Space above footer */
-        }
-        .card-header-primary {
-            border-bottom: 4px solid #0d6efd; /* Blue border for emphasis */
-            background-color: #ffffff;
+        /* --- 2. NAVBAR STYLING (Light & Clean) --- */
+        
+        /* LIGHT MODE (Default) */
+        #mainNavbar {
+            background-color: #ffffff !important; /* Clean White */
+            border-bottom: 4px solid #ffc107; /* The "Make-It-All" Yellow Strip */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
-        /* Dark Mode Card Header Adjustment */
-        body[data-bs-theme="dark"] .card-header-primary {
-            background-color: #343a40; 
-        }
-
-        .logo-img-nav {
-            height: 40px; 
-        }
-        .logo-img-footer {
-            height: 50px; 
-        }
-        .hover-link:hover {
-            color: #0d6efd !important; 
-        }
-
-        /* Style for the accessibility button */
-        .btn-acc {
-            color: var(--bs-body-color);
-            border: 1px solid var(--bs-border-color);
-        }
-        
-        /* Styling for the expandable task row */
-        .task-details-row {
-            background-color: #fdfdfd;
-        }
-        body[data-bs-theme="dark"] .task-details-row {
-            background-color: #2c3034;
-        }
-        
-        /* Ensure the task name looks like a link */
-        .task-toggle {
-            text-decoration: none;
+        /* Navbar Links (Light Mode) */
+        #mainNavbar .nav-link {
+            color: #495057 !important; /* Dark Grey */
             font-weight: 500;
         }
-        .task-toggle:hover {
+        #mainNavbar .nav-link:hover {
+            color: #d39e00 !important; /* Gold on hover */
+        }
+        #mainNavbar .nav-link.active {
+            color: #000000 !important; /* Black for active page */
+            font-weight: 700;
+            border-bottom: 3px solid #ffc107; /* Little underline for active tab */
+        }
+        /* Text/Icons in Navbar (Light Mode) */
+        #mainNavbar .navbar-text, #mainNavbar i {
+            color: #495057 !important;
+        }
+
+        /* DARK MODE OVERRIDES */
+        body[data-bs-theme="dark"] #mainNavbar {
+            background-color: #000000 !important; /* Pure Black */
+            border-bottom: 4px solid #d39e00;
+        }
+        body[data-bs-theme="dark"] #mainNavbar .nav-link {
+            color: #e0e0e0 !important;
+        }
+        body[data-bs-theme="dark"] #mainNavbar .nav-link:hover {
+            color: #ffc107 !important;
+        }
+        body[data-bs-theme="dark"] #mainNavbar .nav-link.active {
+            color: #ffc107 !important;
+        }
+        body[data-bs-theme="dark"] #mainNavbar .navbar-text, body[data-bs-theme="dark"] #mainNavbar i {
+            color: #e0e0e0 !important;
+        }
+        /* Invert the toggler icon in dark mode so it's visible */
+        body[data-bs-theme="dark"] .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+
+        /* --- 3. CARD & TABLE STYLING --- */
+        .card {
+            border: none; 
+            border-radius: 8px;
+        }
+        
+        /* Card Header - Clean White with Yellow Accent */
+        .card-header-primary {
+            border-bottom: 3px solid #ffc107; 
+            background-color: #ffffff;
+        }
+        body[data-bs-theme="dark"] .card-header-primary {
+            background-color: #2c3034; 
+            border-bottom: 3px solid #d39e00;
+        }
+
+        /* Table Headers - Light Grey to anchor the content */
+        .table thead th {
+            background-color: #f8f9fa; 
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: #666;
+            font-weight: 700;
+            border-bottom: 2px solid #e9ecef;
+        }
+        body[data-bs-theme="dark"] .table thead th {
+            background-color: #1a1d20;
+            color: #aaa;
+            border-bottom: 2px solid #333;
+        }
+
+        /* --- 4. BADGES (The "Workwear" Palette) --- */
+        
+        /* Pending - Pale Yellow */
+        .badge.bg-warning {
+            background-color: #fff8dd !important; 
+            color: #856404 !important;
+            border: 1px solid #ffeeba;
+        }
+        
+        /* In Progress - Steel Blue/Denim */
+        .badge.bg-info {
+            background-color: #4a6f8a !important; 
+            color: #ffffff !important;
+        }
+        
+        /* High - Brick Red */
+        .badge.bg-danger {
+            background-color: #c0392b !important;
+            color: white !important;
+        }
+
+        /* Completed/Low - Forest Green */
+        .badge.bg-success {
+            background-color: #27ae60 !important;
+            color: white !important;
+        }
+        
+        /* Completed darker variant */
+        .badge.bg-success.completed {
+            background-color: #198754 !important;
+        }
+
+        /* --- 5. UTILITIES --- */
+        #pageFooter {
+            background-color: #e9ecef !important; 
+        }
+        body[data-bs-theme="dark"] #pageFooter {
+            background-color: #121416 !important;
+            border-top: 1px solid #333;
+        }
+        .hover-link:hover {
+            color: #d39e00 !important; 
             text-decoration: underline;
         }
 
-        /* Ensure table text is readable in light mode footer */
-        #pageFooter.bg-light .text-light {
-            color: #212529 !important;
+        .logo-img-nav { height: 40px; }
+        .logo-img-footer { height: 50px; }
+        
+        /* Task Links */
+        .task-toggle {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50; 
         }
-        #pageFooter.bg-light .text-secondary {
-            color: #6c757d !important;
+        body[data-bs-theme="dark"] .task-toggle {
+            color: #e0e0e0;
         }
-        #pageFooter.bg-light .hover-link {
-            color: #212529 !important;
+        .task-toggle:hover {
+            color: #d39e00; 
         }
-         #pageFooter.bg-light .hover-link:hover {
-            color: #0d6efd !important;
+        
+        /* Expanded Details Row */
+        .task-details-row td {
+            background-color: #fcfcfc;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.02);
+        }
+        body[data-bs-theme="dark"] .task-details-row td {
+            background-color: #222;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
         }
 
+        /* Accessibility */
+        body.enlarged-text { font-size: 1.4rem; }
+        .main-content { padding-bottom: 80px; }
+        
     </style>
 </head>
 <body data-bs-theme="light">
 
-    <!-- 1. Navigation Bar -->
-    <!-- Navbar starts as 'bg-light' (light grey) -->
-    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid container-lg">
-            <!-- Company Logo -->
-            <!-- UPDATED: Link points to mainMenu.html -->
             <a class="navbar-brand" href="mainMenu.html">
                 <img src="mia_logo.jpg" 
                      alt="The Make-It-All Company Logo" 
                      class="logo-img-nav"
-                     onerror="this.onerror=null; this.src='https://placehold.co/200x40/cccccc/333333?text=MIA';" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x40/ffffff/000000?text=MIA+Logo';" 
                 >
             </a>
             
@@ -117,12 +196,9 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- NEW: Main (Dashboard) Link -->
-                    <!-- UPDATED: Link points to mainMenu.html -->
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" aria-current="page" href="mainMenu.html">Main</a>
+                        <a class="nav-link active" aria-current="page" href="mainMenu.html">Main</a>
                     </li>
-                    <!-- UPDATED: Tasks Link -->
                     <li class="nav-item">
                         <a class="nav-link" href="tasks.html">Tasks</a>
                     </li>
@@ -131,15 +207,12 @@
                     </li>
                 </ul>
                 
-                <!-- Accessibility, Dark Mode, and User/Logout Section -->
                 <div class="d-flex align-items-center">
                     
-                    <!-- Text Enlargement Button -->
                     <button id="textEnlargeToggle" class="btn btn-sm btn-outline-secondary me-3" title="Toggle Text Size">
                         <i id="textSizeIcon" class="bi bi-plus-lg"></i>
                     </button>
 
-                    <!-- Dark Mode Toggle Switch -->
                     <div class="form-check form-switch me-3">
                         <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
                         <label class="form-check-label" for="darkModeToggle">
@@ -150,31 +223,26 @@
                     <span class="navbar-text me-3" id="welcomeMessage">
                         Welcome
                     </span>
-                    <!-- UPDATED: Logout is now a link to login.html -->
                     <a href="login.html" class="btn btn-outline-secondary btn-sm">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 2. Main Content Area (Dashboard) -->
-    <!-- UPDATED: Reduced margin from my-5 to my-4 -->
     <main class="container-lg my-4 main-content">
-        <h1 class="mb-4">MIA Connect Dashboard</h1>
+        <h1 class="mb-4 fw-bold">MIA Connect Dashboard</h1>
         
-        <!-- UNIFIED TASKS SECTION -->
         <div class="row g-4 mb-5">
             
-            <!-- 1. My Individual Tasks -->
             <div class="col-12">
-                <div class="card shadow-lg rounded-3">
-                    <div class="card-header card-header-primary p-3">
-                        <h2 class="h5 mb-0"><i class="bi bi-person-check me-2"></i>My Individual Tasks</h2>
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-primary p-3 d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0 fw-bold"><i class="bi bi-person-check me-2"></i>My Individual Tasks</h2>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light" id="tableHead1">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead id="tableHead1">
                                     <tr>
                                         <th scope="col" class="ps-3">Task</th>
                                         <th scope="col">Due Date</th>
@@ -183,56 +251,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Task 1 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button" aria-expanded="false" aria-controls="indTask1">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button" aria-expanded="false">
                                                 Finalise Requirement Listings (R1)
                                             </a>
                                         </td>
-                                        <td>30 October 2025</td>
-                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                        <td><span class="badge bg-danger text-dark">High</span></td>
+                                        <td>30/10/25</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td><span class="badge bg-danger">High</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask1">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Review and finalise the R1 requirements document based on client feedback from the last meeting.</p>
+                                            <small class="text-muted d-block mb-2">DETAILS</small>
+                                            <p class="mb-1"><strong>Description:</strong> Review and finalise the R1 requirements document based on client feedback.</p>
                                             <p class="mb-0"><strong>Category:</strong> Non-Technical (Admin)</p>
                                         </td>
                                     </tr>
                                     
-                                    <!-- Task 2 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask2" role="button" aria-expanded="false" aria-controls="indTask2">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask2" role="button" aria-expanded="false">
                                                 Review firewall log analysis report
                                             </a>
                                         </td>
-                                        <td>05 November 2025</td>
+                                        <td>05/11/25</td>
                                         <td><span class="badge bg-info">In Progress</span></td>
                                         <td><span class="badge bg-warning text-dark">Medium</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask2">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Perform weekly analysis of firewall logs for any unusual activity. Report findings to the security team.</p>
+                                            <small class="text-muted d-block mb-2">DETAILS</small>
+                                            <p class="mb-1"><strong>Description:</strong> Perform weekly analysis of firewall logs.</p>
                                             <p class="mb-0"><strong>Category:</strong> Technical (Security)</p>
                                         </td>
                                     </tr>
 
-                                    <!-- Task 3 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask3" role="button" aria-expanded="false" aria-controls="indTask3">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask3" role="button" aria-expanded="false">
                                                 Submit Q4 travel expenses claim
                                             </a>
                                         </td>
-                                        <td>15 November 2025</td>
+                                        <td>15/11/25</td>
                                         <td><span class="badge bg-secondary">Not Started</span></td>
-                                        <td><span class="badge bg-success text-dark">Low</span></td>
+                                        <td><span class="badge bg-success">Low</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask3">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Collate all receipts for Q4 travel and submit via the internal finance portal.</p>
+                                            <small class="text-muted d-block mb-2">DETAILS</small>
+                                            <p class="mb-1"><strong>Description:</strong> Collate all receipts for Q4 travel.</p>
                                             <p class="mb-0"><strong>Category:</strong> Non-Technical (Finance)</p>
                                         </td>
                                     </tr>
@@ -243,16 +311,15 @@
                 </div>
             </div>
 
-            <!-- 2. My Team Tasks -->
             <div class="col-12">
-                <div class="card shadow-lg rounded-3">
+                <div class="card shadow-sm">
                     <div class="card-header card-header-primary p-3">
-                        <h2 class="h5 mb-0"><i class="bi bi-people-fill me-2"></i>My Team Tasks</h2>
+                        <h2 class="h5 mb-0 fw-bold"><i class="bi bi-people-fill me-2"></i>My Team Tasks</h2>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light" id="tableHead2">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead id="tableHead2">
                                     <tr>
                                         <th scope="col" class="ps-3">Task</th>
                                         <th scope="col">Due Date</th>
@@ -261,38 +328,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Team Task 1 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button" aria-expanded="false" aria-controls="teamTask1">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button" aria-expanded="false">
                                                 COB290 Prototype Submission (R1/P)
                                             </a>
                                         </td>
-                                        <td>03 November 2025</td>
-                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                        <td><span class="badge bg-danger text-dark">High</span></td>
+                                        <td>03/11/25</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td><span class="badge bg-danger">High</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="teamTask1">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Submit the final static prototype and R1 report to Learn by the 4pm deadline.</p>
+                                            <small class="text-muted d-block mb-2">DETAILS</small>
+                                            <p class="mb-1"><strong>Description:</strong> Submit the final static prototype.</p>
                                             <p class="mb-0"><strong>Category:</strong> Non-Technical (Project)</p>
                                         </td>
                                     </tr>
                                     
-                                    <!-- Team Task 2 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask2" role="button" aria-expanded="false" aria-controls="teamTask2">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask2" role="button" aria-expanded="false">
                                                 Q3 Financial Reporting System Upgrade
                                             </a>
                                         </td>
-                                        <td>30 October 2025</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>30/10/25</td>
+                                        <td><span class="badge bg-success completed">Completed</span></td>
                                         <td><span class="badge bg-warning text-dark">Medium</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="teamTask2">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Deploy the v2.1 patch to the financial reporting system. Requires system downtime, coordinate with all departments.</p>
+                                            <small class="text-muted d-block mb-2">DETAILS</small>
+                                            <p class="mb-1"><strong>Description:</strong> Deploy the v2.1 patch.</p>
                                             <p class="mb-0"><strong>Category:</strong> Technical (Software)</p>
                                         </td>
                                     </tr>
@@ -302,85 +369,75 @@
                     </div>
                 </div>
             </div>
-            <!-- Below is code for the calender-->
-            <div class="container-lg my-4 main-content">
-                <div class="card h-100 shadow-lg rounded-3">
+            
+            <div class="col-12">
+                <div class="card h-100 shadow-sm">
                     <div class="card-body p-0">
                         <div class="card-header card-header-primary p-3">
-                            <h5 class="card-title mb-1 d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0 d-flex justify-content-between align-items-center fw-bold">
                                 <span>
-                                    <img id = "calenderPic" src="calendar.png" alt="Calender logo" style="padding-right:10px" height="30px">
-                                    Project Calendar
+                                    <i class="bi bi-calendar-week me-2"></i>Project Calendar
                                 </span>
-                                <a id = "toggleExpand" href="javascript:void(0);" class="ml-auto" onclick = "toggleCalendar();">Expand</a>
+                                <button id="toggleExpand" class="btn btn-sm btn-outline-secondary" onclick="toggleCalendar();">Expand</button>
                             </h5>
                         </div>
-                    <div id="expand" style = "display:none">
-                        <div style = "padding:10px">
-                            <p class="card-text mb-3">View the schedule for all upcoming events, deadlines, and meetings here.</p>
+                    <div id="expand" style="display:none">
+                        <div style="padding:15px">
+                            <p class="card-text mb-0 text-muted">View the schedule for all upcoming events, deadlines, and meetings here.</p>
                         </div>
                         <div style="height: 600px; width: 100%;">
-                            
-                            <iframe id = "calender" src="https://calendar.google.com/calendar/embed?src=c8b0a7249dc646c7021189b1254d21655e7c16290c09d132277168f4e0d0d111%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 100%;padding : 10px" frameborder="0" scrolling="no" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe id="calender" src="https://calendar.google.com/calendar/embed?src=c8b0a7249dc646c7021189b1254d21655e7c16290c09d132277168f4e0d0d111%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 100%; padding: 10px" frameborder="0" scrolling="no" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
     </main>
 
-    <!-- 3. Footer -->
-    <!-- UPDATED: Added border-top for separation in light mode -->
-    <footer id="pageFooter" class="bg-light text-dark pt-5 pb-3 border-top">
+    <footer id="pageFooter" class="pt-5 pb-3 border-top">
         <div class="container-lg">
             <div class="row">
-                <!-- Company Logo -->
                 <div class="col-md-4 mb-4">
                     <img src="mia_logo.jpg" 
                          alt="The Make-It-All Company Logo" 
                          class="logo-img-footer mb-2"
-                         onerror="this.onerror=null; this.src='https://placehold.co/250x50/cccccc/333333?text=MIA';" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/250x50/cccccc/333333?text=MIA+System';" 
                     >
-                    <p class="small" id="footerSubtitle">
+                    <p class="small text-muted mt-2" id="footerSubtitle">
                         The productivity and knowledge management system for the Make-It-All Company.
                     </p>
                 </div>
 
-                <!-- Contact Information -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="border-bottom border-secondary pb-2 mb-3">Contact Information</h5>
+                    <h5 class="border-bottom border-secondary pb-2 mb-3 fw-bold">Contact Information</h5>
                     <ul class="list-unstyled small" id="footerContact">
-                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i> <a href ="https://maps.app.goo.gl/nd6SFfBtozboQu9b8">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
-                        <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary"></i>T: <a href="tel:01509888999" class="text-decoration-none hover-link">01509 888999</a></li>
-                        <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary"></i>Email: <a href="mailto:king@make-it-all.co.uk" class="text-decoration-none hover-link">king@make-it-all.co.uk</a></li>
-                        <li class="mb-2"><i class="bi bi-globe me-2 text-primary"></i>URL: <a href="http://www.make-it-all.co.uk/" target="_blank" class="text-decoration-none hover-link">www.make-it-all.co.uk</a></li>
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-secondary"></i> <a href="#" class="text-decoration-none text-secondary hover-link">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-secondary"></i>T: <a href="tel:01509888999" class="text-decoration-none text-secondary hover-link">01509 888999</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-secondary"></i>Email: <a href="mailto:king@make-it-all.co.uk" class="text-decoration-none text-secondary hover-link">king@make-it-all.co.uk</a></li>
+                        <li class="mb-2"><i class="bi bi-globe me-2 text-secondary"></i>URL: <a href="http://www.make-it-all.co.uk/" target="_blank" class="text-decoration-none text-secondary hover-link">www.make-it-all.co.uk</a></li>
                     </ul>
                 </div>
 
-                <!-- Placeholder Links -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="border-bottom border-secondary pb-2 mb-3">System Resources (Demo)</h5>
+                    <h5 class="border-bottom border-secondary pb-2 mb-3 fw-bold">System Resources</h5>
                     <ul class="list-unstyled small" id="footerLinks">
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Knowledge Hub</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Admin Support</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Project Guides</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-link">Knowledge Hub</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-link">Admin Support</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-link">Project Guides</a></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Copyright -->
             <div class="text-center pt-3 border-top border-secondary">
                 <p class="mb-0 text-secondary small">
-                    &copy; 2025 The Make-It-All Company. All rights reserved. Intranet Version 1.0 (Prototype).
+                    © 2025 The Make-It-All Company. All rights reserved. Intranet Version 1.1.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Load Bootstrap 5 JS Bundle via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
         // Calender JS
@@ -405,15 +462,6 @@
         const body = document.body;
         const modeIcon = document.getElementById('modeIcon');
         
-        // NEW References for elements that need colour switching
-        const mainNavbar = document.getElementById('mainNavbar'); 
-        const pageFooter = document.getElementById('pageFooter');
-        const footerSubtitle = document.getElementById('footerSubtitle');
-        const footerLinks = document.querySelectorAll('#footerLinks a, #footerContact a');
-        const tableHead1 = document.getElementById('tableHead1');
-        const tableHead2 = document.getElementById('tableHead2');
-
-        // Function to apply theme based on preference
         function applyTheme(theme) {
             body.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
@@ -422,58 +470,23 @@
                 themeToggle.checked = true;
                 modeIcon.classList.remove('bi-sun-fill');
                 modeIcon.classList.add('bi-moon-fill');
-
-                // --- NEW Dark Mode Colours ---
-                mainNavbar.classList.remove('navbar-light', 'bg-light');
-                mainNavbar.classList.add('navbar-dark', 'bg-mia-dark'); // Use custom dark class
-
-                pageFooter.classList.remove('bg-light', 'text-dark');
-                pageFooter.classList.add('bg-mia-dark', 'text-light'); // Use custom dark class
-
-                footerSubtitle.classList.add('text-light');
-                footerLinks.forEach(link => link.classList.add('text-light'));
                 
-                // NEW: Switch table headers to dark
-                tableHead1.classList.remove('table-light');
-                tableHead1.classList.add('table-dark');
-                tableHead2.classList.remove('table-light');
-                tableHead2.classList.add('table-dark');
                 // Switch calender to dark
                 document.getElementById("calender").style.filter = "invert(100%) brightness(90%)";
-                document.getElementById("calenderPic").style.filter = "invert(100%)"
-                
-                
                 
             } else {
                 themeToggle.checked = false;
                 modeIcon.classList.remove('bi-moon-fill');
                 modeIcon.classList.add('bi-sun-fill');
                 
-                // --- NEW Light Mode Colours ---
-                mainNavbar.classList.remove('navbar-dark', 'bg-mia-dark');
-                mainNavbar.classList.add('navbar-light', 'bg-light'); // Use light grey
-
-                pageFooter.classList.remove('bg-mia-dark', 'text-light');
-                pageFooter.classList.add('bg-light', 'text-dark'); // Use light grey
-
-                footerSubtitle.classList.remove('text-light');
-                footerLinks.forEach(link => link.classList.remove('text-light'));
-
-                // NEW: Switch table headers to light
-                tableHead1.classList.remove('table-dark');
-                tableHead1.classList.add('table-light');
-                tableHead2.classList.remove('table-dark');
-                tableHead2.classList.add('table-light');
-
                 // Switch calender to light
                 document.getElementById("calender").style.filter = "invert(0%)";
-                document.getElementById("calenderPic").style.filter = "invert(0%)";
             }
         }
 
         // Load saved theme preference on page load
         const savedTheme = localStorage.getItem('theme');
-        applyTheme(savedTheme || 'light'); // Default to light
+        applyTheme(savedTheme || 'light'); 
 
         // Handle theme change event from the switch
         themeToggle.addEventListener('change', () => {
@@ -508,19 +521,20 @@
             applyTextSize(!body.classList.contains(TEXT_CLASS));
         });
 
+        // Welcome Message Logic
         const welcomeMessageElement = document.getElementById('welcomeMessage');
-
-
         const loggedInUser = sessionStorage.getItem('loggedInUser');
-        
+        const userRole = sessionStorage.getItem('userRole');
 
-        const newText = `Welcome, ${loggedInUser.slice(0,-14)} (${sessionStorage.getItem('userRole')})`;
+        if (loggedInUser && userRole) {
+             const displayName = loggedInUser.length > 14 ? loggedInUser.slice(0,-14) : loggedInUser;
+             welcomeMessageElement.textContent = `Welcome, ${displayName} (${userRole})`;
+        } else {
+             welcomeMessageElement.textContent = "Welcome, Guest";
+        }
 
-        welcomeMessageElement.textContent = newText;
     </script>
 </body>
 </html>
-
-
 
 
