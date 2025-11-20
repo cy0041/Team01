@@ -1,0 +1,137 @@
+/* Core Global Styles */
+body {
+    font-family: Inter, sans-serif;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s;
+    font-size: 1rem;
+}
+
+/* Accessibility Enlarged Text */
+body.enlarged-text {
+    font-size: 1.25rem;
+}
+
+/* Space Above Footer */
+.main-content {
+    padding-bottom: 80px;
+}
+
+/* Links Helper */
+.hover-link:hover {
+    color: #0d6efd !important;
+}
+
+/* Dark Mode Theme Overrides */
+body[data-bs-theme="dark"] {
+    background-color: #212529;
+}
+
+/* Custom Dark Background for Nav and Footer */
+.bg-mia-dark {
+    background-color: #1a1a1a !important;
+}
+
+/* Card Headers in Dark Mode */
+body[data-bs-theme="dark"] .card-header-primary {
+    background-color: #343a40;
+}
+
+/* Table Stripes in Dark Mode */
+body[data-bs-theme="dark"] .task-details-row {
+    background-color: #2c3034;
+}
+
+/* Fix Table Sticky Header in Dark Mode */
+body[data-bs-theme="dark"] .table-light th {
+    background-color: #343a40;
+    color: #fff;
+    box-shadow: 0 1px 0 #495057;
+}
+
+/* Navigation and Footer */
+.logo-img-nav {
+    height: 40px;
+}
+
+.logo-img-footer {
+    height: 50px;
+}
+
+/* Footer Visibility Fixes for Light Mode */
+#pageFooter.bg-light .text-light {
+    color: #212529 !important;
+}
+
+#pageFooter.bg-light .text-secondary {
+    color: #6c757d !important;
+}
+
+#pageFooter.bg-light .hover-link {
+    color: #212529 !important;
+}
+
+#pageFooter.bg-light .hover-link:hover {
+    color: #0d6efd !important;
+}
+
+/* Cards and UI Components */
+.card-header-primary {
+    border-bottom: 4px solid #0d6efd;
+    background-color: #ffffff;
+}
+
+.btn-acc {
+    color: var(--bs-body-color);
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Task Specific Styles */
+
+/* Scrollable Task List Container */
+.task-list-container {
+    height: 600px;
+    overflow-y: auto;
+}
+
+/* Sticky Table Header */
+.task-list-container thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Task Link Styling */
+.task-toggle {
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    color: inherit;
+}
+
+.task-toggle:hover {
+    text-decoration: underline;
+    color: #0d6efd;
+}
+
+/* Task Expandable Row Background */
+.task-details-row {
+    background-color: #fdfdfd;
+}
+
+/* Task Priorities Border Indicators */
+.priority-high {
+    border-left: 5px solid #dc3545;
+}
+
+.priority-medium {
+    border-left: 5px solid #ffc107;
+}
+
+.priority-low {
+    border-left: 5px solid #198754;
+}
+
+/* Manager View Dropdown */
+#managerViewDropdown {
+    display: none;
+}
