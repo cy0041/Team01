@@ -4,125 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIA Connect Dashboard Prototype</title>
-    <!-- Load Bootstrap 5 CSS via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Load Bootstrap Icons via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <style>
-        /* Custom basic style for the internal system look */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Default Light grey background */
-            transition: background-color 0.3s, color 0.3s, font-size 0.3s; /* Smooth theme transition */
-            font-size: 1rem; /* Regular size */
-        }
-
-        /* Accessibility: Enlarged Text Option */
-        body.enlarged-text {
-            font-size: 1.25rem; 
-        }
-        
-        /* Dark Mode adjustments for body background when active */
-        body[data-bs-theme="dark"] {
-            background-color: #212529; /* Dark background */
-        }
-        
-        /* Custom Footer Background Colour (used for Nav in Dark Mode) */
-        .bg-mia-dark {
-            background-color: #1a1a1a !important; 
-        }
-
-        .main-content {
-            padding-bottom: 80px; /* Space above footer */
-        }
-        .card-header-primary {
-            border-bottom: 4px solid #0d6efd; /* Blue border for emphasis */
-            background-color: #ffffff;
-        }
-        
-        /* Dark Mode Card Header Adjustment */
-        body[data-bs-theme="dark"] .card-header-primary {
-            background-color: #343a40; 
-        }
-
-        .logo-img-nav {
-            height: 40px; 
-        }
-        .logo-img-footer {
-            height: 50px; 
-        }
-        .hover-link:hover {
-            color: #0d6efd !important; 
-        }
-
-        /* Style for the accessibility button */
-        .btn-acc {
-            color: var(--bs-body-color);
-            border: 1px solid var(--bs-border-color);
-        }
-        
-        /* Styling for the expandable task row */
-        .task-details-row {
-            background-color: #fdfdfd;
-        }
-        body[data-bs-theme="dark"] .task-details-row {
-            background-color: #2c3034;
-        }
-        
-        /* Ensure the task name looks like a link */
-        .task-toggle {
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .task-toggle:hover {
-            text-decoration: underline;
-        }
-
-        /* Ensure table text is readable in light mode footer */
-        #pageFooter.bg-light .text-light {
-            color: #212529 !important;
-        }
-        #pageFooter.bg-light .text-secondary {
-            color: #6c757d !important;
-        }
-        #pageFooter.bg-light .hover-link {
-            color: #212529 !important;
-        }
-         #pageFooter.bg-light .hover-link:hover {
-            color: #0d6efd !important;
-        }
-
-    </style>
+    <link rel="stylesheet" href="menu_tasks.css">
 </head>
 <body data-bs-theme="light">
 
-    <!-- 1. Navigation Bar -->
-    <!-- Navbar starts as 'bg-light' (light grey) -->
     <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
         <div class="container-fluid container-lg">
-            <!-- Company Logo -->
-            <!-- UPDATED: Link points to mainMenu.html -->
             <a class="navbar-brand" href="mainMenu.html">
                 <img src="mia_logo.jpg" 
-                     alt="The Make-It-All Company Logo" 
+                     alt="The Make It All Company Logo" 
                      class="logo-img-nav"
                      onerror="this.onerror=null; this.src='https://placehold.co/200x40/cccccc/333333?text=MIA';" 
                 >
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- NEW: Main (Dashboard) Link -->
-                    <!-- UPDATED: Link points to mainMenu.html -->
                     <li class="nav-item">
                         <a class="nav-link active fw-bold" aria-current="page" href="mainMenu.html">Main</a>
                     </li>
-                    <!-- UPDATED: Tasks Link -->
                     <li class="nav-item">
                         <a class="nav-link" href="tasks.html">Tasks</a>
                     </li>
@@ -131,15 +37,12 @@
                     </li>
                 </ul>
                 
-                <!-- Accessibility, Dark Mode, and User/Logout Section -->
                 <div class="d-flex align-items-center">
                     
-                    <!-- Text Enlargement Button -->
                     <button id="textEnlargeToggle" class="btn btn-sm btn-outline-secondary me-3" title="Toggle Text Size">
                         <i id="textSizeIcon" class="bi bi-plus-lg"></i>
                     </button>
 
-                    <!-- Dark Mode Toggle Switch -->
                     <div class="form-check form-switch me-3">
                         <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
                         <label class="form-check-label" for="darkModeToggle">
@@ -150,22 +53,17 @@
                     <span class="navbar-text me-3" id="welcomeMessage">
                         Welcome
                     </span>
-                    <!-- UPDATED: Logout is now a link to login.html -->
                     <a href="login.html" class="btn btn-outline-secondary btn-sm">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 2. Main Content Area (Dashboard) -->
-    <!-- UPDATED: Reduced margin from my-5 to my-4 -->
     <main class="container-lg my-4 main-content">
         <h1 class="mb-4">MIA Connect Dashboard</h1>
         
-        <!-- UNIFIED TASKS SECTION -->
         <div class="row g-4 mb-5">
             
-            <!-- 1. My Individual Tasks -->
             <div class="col-12">
                 <div class="card shadow-lg rounded-3">
                     <div class="card-header card-header-primary p-3">
@@ -183,11 +81,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Task 1 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button" aria-expanded="false" aria-controls="indTask1">
-                                                Finalise Requirement Listings (R1)
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask1" role="button">
+                                                Finalise Requirement Listings R1
                                             </a>
                                         </td>
                                         <td>30 October 2025</td>
@@ -196,33 +93,31 @@
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask1">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Review and finalise the R1 requirements document based on client feedback from the last meeting.</p>
-                                            <p class="mb-0"><strong>Category:</strong> Non-Technical (Admin)</p>
+                                            <p class="mb-1"><strong>Description:</strong> Review and finalise the R1 requirements document.</p>
+                                            <p class="mb-0"><strong>Category:</strong> Non Technical Admin</p>
                                         </td>
                                     </tr>
                                     
-                                    <!-- Task 2 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask2" role="button" aria-expanded="false" aria-controls="indTask2">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask2" role="button">
                                                 Review firewall log analysis report
                                             </a>
                                         </td>
                                         <td>05 November 2025</td>
-                                        <td><span class="badge bg-info">In Progress</span></td>
+                                        <td><span class="badge bg-info text-dark">In Progress</span></td>
                                         <td><span class="badge bg-warning text-dark">Medium</span></td>
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask2">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Perform weekly analysis of firewall logs for any unusual activity. Report findings to the security team.</p>
-                                            <p class="mb-0"><strong>Category:</strong> Technical (Security)</p>
+                                            <p class="mb-1"><strong>Description:</strong> Perform weekly analysis of firewall logs.</p>
+                                            <p class="mb-0"><strong>Category:</strong> Technical Security</p>
                                         </td>
                                     </tr>
 
-                                    <!-- Task 3 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask3" role="button" aria-expanded="false" aria-controls="indTask3">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#indTask3" role="button">
                                                 Submit Q4 travel expenses claim
                                             </a>
                                         </td>
@@ -232,8 +127,8 @@
                                     </tr>
                                     <tr class="collapse task-details-row" id="indTask3">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Collate all receipts for Q4 travel and submit via the internal finance portal.</p>
-                                            <p class="mb-0"><strong>Category:</strong> Non-Technical (Finance)</p>
+                                            <p class="mb-1"><strong>Description:</strong> Collate all receipts for Q4 travel.</p>
+                                            <p class="mb-0"><strong>Category:</strong> Non Technical Finance</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -243,7 +138,6 @@
                 </div>
             </div>
 
-            <!-- 2. My Team Tasks -->
             <div class="col-12">
                 <div class="card shadow-lg rounded-3">
                     <div class="card-header card-header-primary p-3">
@@ -261,11 +155,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Team Task 1 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button" aria-expanded="false" aria-controls="teamTask1">
-                                                COB290 Prototype Submission (R1/P)
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask1" role="button">
+                                                COB290 Prototype Submission R1 P
                                             </a>
                                         </td>
                                         <td>03 November 2025</td>
@@ -274,15 +167,14 @@
                                     </tr>
                                     <tr class="collapse task-details-row" id="teamTask1">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Submit the final static prototype and R1 report to Learn by the 4pm deadline.</p>
-                                            <p class="mb-0"><strong>Category:</strong> Non-Technical (Project)</p>
+                                            <p class="mb-1"><strong>Description:</strong> Submit the final static prototype.</p>
+                                            <p class="mb-0"><strong>Category:</strong> Non Technical Project</p>
                                         </td>
                                     </tr>
                                     
-                                    <!-- Team Task 2 (Expandable) -->
                                     <tr>
                                         <td class="ps-3">
-                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask2" role="button" aria-expanded="false" aria-controls="teamTask2">
+                                            <a class="task-toggle" data-bs-toggle="collapse" href="#teamTask2" role="button">
                                                 Q3 Financial Reporting System Upgrade
                                             </a>
                                         </td>
@@ -292,8 +184,8 @@
                                     </tr>
                                     <tr class="collapse task-details-row" id="teamTask2">
                                         <td colspan="4" class="p-3">
-                                            <p class="mb-1"><strong>Description:</strong> Deploy the v2.1 patch to the financial reporting system. Requires system downtime, coordinate with all departments.</p>
-                                            <p class="mb-0"><strong>Category:</strong> Technical (Software)</p>
+                                            <p class="mb-1"><strong>Description:</strong> Deploy the v2.1 patch to the financial reporting system.</p>
+                                            <p class="mb-0"><strong>Category:</strong> Technical Software</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -302,26 +194,25 @@
                     </div>
                 </div>
             </div>
-            <!-- Below is code for the calender-->
+            
             <div class="container-lg my-4 main-content">
                 <div class="card h-100 shadow-lg rounded-3">
                     <div class="card-body p-0">
                         <div class="card-header card-header-primary p-3">
                             <h5 class="card-title mb-1 d-flex justify-content-between align-items-center">
                                 <span>
-                                    <img id = "calenderPic" src="calendar.png" alt="Calender logo" style="padding-right:10px" height="30px">
+                                    <img id="calenderPic" src="calendar.png" alt="Calender logo" style="padding-right:10px" height="30px">
                                     Project Calendar
                                 </span>
-                                <a id = "toggleExpand" href="javascript:void(0);" class="ml-auto" onclick = "toggleCalendar();">Expand</a>
+                                <a id="toggleExpand" href="javascript:void(0);" class="ml-auto" onclick="toggleCalendar();">Expand</a>
                             </h5>
                         </div>
-                    <div id="expand" style = "display:none">
-                        <div style = "padding:10px">
+                    <div id="expand" style="display:none">
+                        <div style="padding:10px">
                             <p class="card-text mb-3">View the schedule for all upcoming events, deadlines, and meetings here.</p>
                         </div>
                         <div style="height: 600px; width: 100%;">
-                            
-                            <iframe id = "calender" src="https://calendar.google.com/calendar/embed?src=c8b0a7249dc646c7021189b1254d21655e7c16290c09d132277168f4e0d0d111%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 100%;padding : 10px" frameborder="0" scrolling="no" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe id="calender" src="https://calendar.google.com/calendar/embed?src=c8b0a7249dc646c7021189b1254d21655e7c16290c09d132277168f4e0d0d111%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 100%; padding: 10px" frameborder="0" scrolling="no" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -331,37 +222,32 @@
         
     </main>
 
-    <!-- 3. Footer -->
-    <!-- UPDATED: Added border-top for separation in light mode -->
     <footer id="pageFooter" class="bg-light text-dark pt-5 pb-3 border-top">
         <div class="container-lg">
             <div class="row">
-                <!-- Company Logo -->
                 <div class="col-md-4 mb-4">
                     <img src="mia_logo.jpg" 
-                         alt="The Make-It-All Company Logo" 
+                         alt="The Make It All Company Logo" 
                          class="logo-img-footer mb-2"
                          onerror="this.onerror=null; this.src='https://placehold.co/250x50/cccccc/333333?text=MIA';" 
                     >
                     <p class="small" id="footerSubtitle">
-                        The productivity and knowledge management system for the Make-It-All Company.
+                        The productivity and knowledge management system for the Make It All Company.
                     </p>
                 </div>
 
-                <!-- Contact Information -->
                 <div class="col-md-4 mb-4">
                     <h5 class="border-bottom border-secondary pb-2 mb-3">Contact Information</h5>
                     <ul class="list-unstyled small" id="footerContact">
-                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i> <a href ="https://maps.app.goo.gl/nd6SFfBtozboQu9b8">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i> <a href="https://www.google.com/maps?q=Science+and+Enterprise+Park,+Loughborough+LE11+3QF" target="_blank">Science and Enterprise Park, Loughborough LE11 3QF</a></li>
                         <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary"></i>T: <a href="tel:01509888999" class="text-decoration-none hover-link">01509 888999</a></li>
                         <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary"></i>Email: <a href="mailto:king@make-it-all.co.uk" class="text-decoration-none hover-link">king@make-it-all.co.uk</a></li>
                         <li class="mb-2"><i class="bi bi-globe me-2 text-primary"></i>URL: <a href="http://www.make-it-all.co.uk/" target="_blank" class="text-decoration-none hover-link">www.make-it-all.co.uk</a></li>
                     </ul>
                 </div>
 
-                <!-- Placeholder Links -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="border-bottom border-secondary pb-2 mb-3">System Resources (Demo)</h5>
+                    <h5 class="border-bottom border-secondary pb-2 mb-3">System Resources Demo</h5>
                     <ul class="list-unstyled small" id="footerLinks">
                         <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Knowledge Hub</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none hover-link">Admin Support</a></li>
@@ -370,17 +256,15 @@
                 </div>
             </div>
 
-            <!-- Copyright -->
             <div class="text-center pt-3 border-top border-secondary">
                 <p class="mb-0 text-secondary small">
-                    &copy; 2025 The Make-It-All Company. All rights reserved. Intranet Version 1.0 (Prototype).
+                    © 2025 The Make It All Company. All rights reserved. Intranet Version 1.0 Prototype.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Load Bootstrap 5 JS Bundle via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Calender JS
@@ -400,12 +284,11 @@
             }
         }
 
-        // --- Theme Switching Logic ---
+        // Theme Switching Logic
         const themeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const modeIcon = document.getElementById('modeIcon');
         
-        // NEW References for elements that need colour switching
         const mainNavbar = document.getElementById('mainNavbar'); 
         const pageFooter = document.getElementById('pageFooter');
         const footerSubtitle = document.getElementById('footerSubtitle');
@@ -413,7 +296,6 @@
         const tableHead1 = document.getElementById('tableHead1');
         const tableHead2 = document.getElementById('tableHead2');
 
-        // Function to apply theme based on preference
         function applyTheme(theme) {
             body.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
@@ -423,64 +305,59 @@
                 modeIcon.classList.remove('bi-sun-fill');
                 modeIcon.classList.add('bi-moon-fill');
 
-                // --- NEW Dark Mode Colours ---
+                // Apply Dark Mode Classes
                 mainNavbar.classList.remove('navbar-light', 'bg-light');
-                mainNavbar.classList.add('navbar-dark', 'bg-mia-dark'); // Use custom dark class
+                mainNavbar.classList.add('navbar-dark', 'bg-mia-dark'); 
 
                 pageFooter.classList.remove('bg-light', 'text-dark');
-                pageFooter.classList.add('bg-mia-dark', 'text-light'); // Use custom dark class
+                pageFooter.classList.add('bg-mia-dark', 'text-light'); 
 
                 footerSubtitle.classList.add('text-light');
                 footerLinks.forEach(link => link.classList.add('text-light'));
                 
-                // NEW: Switch table headers to dark
                 tableHead1.classList.remove('table-light');
                 tableHead1.classList.add('table-dark');
                 tableHead2.classList.remove('table-light');
                 tableHead2.classList.add('table-dark');
-                // Switch calender to dark
+                
+                // Invert Calendar Colors
                 document.getElementById("calender").style.filter = "invert(100%) brightness(90%)";
-                document.getElementById("calenderPic").style.filter = "invert(100%)"
-                
-                
+                document.getElementById("calenderPic").style.filter = "invert(100%)";
                 
             } else {
                 themeToggle.checked = false;
                 modeIcon.classList.remove('bi-moon-fill');
                 modeIcon.classList.add('bi-sun-fill');
                 
-                // --- NEW Light Mode Colours ---
+                // Apply Light Mode Classes
                 mainNavbar.classList.remove('navbar-dark', 'bg-mia-dark');
-                mainNavbar.classList.add('navbar-light', 'bg-light'); // Use light grey
+                mainNavbar.classList.add('navbar-light', 'bg-light'); 
 
                 pageFooter.classList.remove('bg-mia-dark', 'text-light');
-                pageFooter.classList.add('bg-light', 'text-dark'); // Use light grey
+                pageFooter.classList.add('bg-light', 'text-dark'); 
 
                 footerSubtitle.classList.remove('text-light');
                 footerLinks.forEach(link => link.classList.remove('text-light'));
 
-                // NEW: Switch table headers to light
                 tableHead1.classList.remove('table-dark');
                 tableHead1.classList.add('table-light');
                 tableHead2.classList.remove('table-dark');
                 tableHead2.classList.add('table-light');
 
-                // Switch calender to light
+                // Reset Calendar Colors
                 document.getElementById("calender").style.filter = "invert(0%)";
                 document.getElementById("calenderPic").style.filter = "invert(0%)";
             }
         }
 
-        // Load saved theme preference on page load
         const savedTheme = localStorage.getItem('theme');
-        applyTheme(savedTheme || 'light'); // Default to light
+        applyTheme(savedTheme || 'light'); 
 
-        // Handle theme change event from the switch
         themeToggle.addEventListener('change', () => {
             applyTheme(themeToggle.checked ? 'dark' : 'light');
         });
 
-        // --- Text Enlargement Logic ---
+        // Text Enlargement Logic
         const textEnlargeToggle = document.getElementById('textEnlargeToggle');
         const textSizeIcon = document.getElementById('textSizeIcon');
         const TEXT_CLASS = 'enlarged-text';
@@ -508,19 +385,13 @@
             applyTextSize(!body.classList.contains(TEXT_CLASS));
         });
 
+        // User Welcome Message Logic
         const welcomeMessageElement = document.getElementById('welcomeMessage');
-
-
         const loggedInUser = sessionStorage.getItem('loggedInUser');
-        
+        const userName = loggedInUser ? loggedInUser.split('@')[0] : "Guest";
+        const userRole = sessionStorage.getItem('userRole') || "Staff";
 
-        const newText = `Welcome, ${loggedInUser.slice(0,-14)} (${sessionStorage.getItem('userRole')})`;
-
-        welcomeMessageElement.textContent = newText;
+        welcomeMessageElement.textContent = `Welcome, ${userName} (${userRole})`;
     </script>
 </body>
 </html>
-
-
-
-
