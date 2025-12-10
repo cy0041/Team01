@@ -1,0 +1,58 @@
+body {
+  
+    margin: 0; 
+    padding: 0; 
+    overflow-x: hidden; 
+    
+
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#togglePassword {
+
+    background: transparent;
+    padding: 0 10px;
+}
+#logo {
+  width: 80%;
+  height: auto;
+  display: block; 
+  margin: 0 auto; 
+}
+#togglePassword:hover img {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+#eyeIcon {
+    cursor: pointer;
+  
+}
+
+#loginMenu{
+ border-radius: 15px 0 0 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    
+}
+
+#loginBtn{
+    border-radius: 15px;
+    transform: scale(1); 
+    transition: transform 0.3s ease; 
+}
+
+
+#loginBtn:hover {
+
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
